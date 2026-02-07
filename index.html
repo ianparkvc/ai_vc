@@ -1,0 +1,590 @@
+
+Index · HTML
+Copy
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AIVC Reports — AI-Powered VC Investment Committee</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #000000;
+  --bg-card: #111111;
+  --bg-card-hover: #181818;
+  --border: #222222;
+  --text: #e8e6e3;
+  --text-sec: #9a9aad;
+  --text-muted: #5a5a70;
+  --gold: #d4a574;
+  --blue: #448aff;
+  --cyan: #18ffff;
+  --green: #00e676;
+  --red: #ff5252;
+  --yellow: #ffd740;
+  --purple: #b388ff;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Space Grotesk', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+}
+
+::selection { background: var(--blue); color: white; }
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #000; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+.page {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* ===== HERO ===== */
+.hero {
+  padding: 12vh 0 6vh;
+  text-align: center;
+  position: relative;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  top: 30%; left: 50%;
+  width: 600px; height: 600px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(68,138,255,0.04) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.logo {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold);
+  border: 1px solid var(--gold);
+  display: inline-block;
+  padding: 0.4rem 1.2rem;
+  border-radius: 100px;
+  margin-bottom: 2.5rem;
+  opacity: 0;
+  animation: fadeUp 0.8s ease-out 0.1s forwards;
+}
+
+.hero h1 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  font-weight: 900;
+  line-height: 1.15;
+  background: linear-gradient(135deg, #e8e6e3, var(--gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 1rem;
+  opacity: 0;
+  animation: fadeUp 0.8s ease-out 0.2s forwards;
+}
+
+.hero p {
+  color: var(--text-sec);
+  font-size: 1rem;
+  max-width: 520px;
+  margin: 0 auto;
+  opacity: 0;
+  animation: fadeUp 0.8s ease-out 0.35s forwards;
+}
+
+.hero .stats {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 2.5rem;
+  opacity: 0;
+  animation: fadeUp 0.8s ease-out 0.5s forwards;
+}
+
+.stat {
+  text-align: center;
+}
+
+.stat-num {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: var(--text);
+}
+
+.stat-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-top: 0.2rem;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== DIVIDER ===== */
+.divider {
+  height: 1px;
+  background: var(--border);
+  margin: 2rem 0 3rem;
+}
+
+/* ===== SECTION LABEL ===== */
+.section-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 1.5rem;
+}
+
+/* ===== REPORT CARDS ===== */
+.report-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 4rem;
+}
+
+.report-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1.75rem 2rem;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.report-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px; height: 100%;
+  background: var(--gold);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.report-card:hover {
+  border-color: #333;
+  background: var(--bg-card-hover);
+  transform: translateY(-2px);
+}
+
+.report-card:hover::before {
+  opacity: 1;
+}
+
+.report-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.report-card-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.report-card-badges {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.badge {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.55rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.6rem;
+  border-radius: 100px;
+}
+
+.badge.invest { background: rgba(0,230,118,0.12); color: var(--green); }
+.badge.pass { background: rgba(255,82,82,0.12); color: var(--red); }
+.badge.dig { background: rgba(255,215,64,0.12); color: var(--yellow); }
+.badge.stage { background: rgba(68,138,255,0.12); color: var(--blue); }
+.badge.new { background: rgba(179,136,255,0.12); color: var(--purple); }
+
+.report-card-desc {
+  font-size: 0.85rem;
+  color: var(--text-sec);
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.report-card-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.report-card-tags {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.tag {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  background: rgba(255,255,255,0.04);
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+}
+
+.report-card-arrow {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-family: 'Space Mono', monospace;
+  transition: all 0.3s;
+}
+
+.report-card:hover .report-card-arrow {
+  color: var(--gold);
+  transform: translateX(4px);
+}
+
+/* ===== ABOUT ===== */
+.about {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 2rem;
+  margin-bottom: 4rem;
+}
+
+.about h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+.about p {
+  font-size: 0.88rem;
+  color: var(--text-sec);
+  line-height: 1.7;
+}
+
+.about p + p { margin-top: 0.75rem; }
+
+.persona-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 1rem;
+}
+
+.persona-chip {
+  font-size: 0.7rem;
+  padding: 0.25rem 0.6rem;
+  border-radius: 100px;
+  background: rgba(255,255,255,0.04);
+  color: var(--text-sec);
+  border: 1px solid var(--border);
+}
+
+/* ===== FOOTER ===== */
+.footer {
+  text-align: center;
+  padding: 2rem 0 3rem;
+  border-top: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 0.7rem;
+}
+
+.footer a {
+  color: var(--gold);
+  text-decoration: none;
+}
+
+.footer a:hover { text-decoration: underline; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 640px) {
+  .page { padding: 0 1.25rem; }
+  .hero { padding: 8vh 0 4vh; }
+  .hero .stats { gap: 1.25rem; }
+  .report-card { padding: 1.25rem 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="logo">AIVC Reports</div>
+    <h1>AI-Powered VC<br>Investment Committee</h1>
+    <p>20명의 실존 VC/사상가 페르소나로 분석하는 투자위원회 시뮬레이션</p>
+    <p>전설적인 VC들이 여러분의 스타트업을 평가해 드립니다!</p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- SOCIAL LINKS -->
+  <div style="text-align: center; margin-bottom: 1.25rem;">
+    <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; font-weight: 700; color: var(--text);">실리콘밸리 VC, 주간실리콘밸리의 이안이 함께 합니다.</h3>
+  </div>
+  <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2.5rem; justify-content: center;">
+    <a href="https://ianpark.vc" target="_blank" style="display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.45rem 1rem; border-radius: 100px; border: 1px solid var(--border); background: var(--bg-card); color: var(--text-sec); text-decoration: none; font-size: 0.72rem; font-weight: 500; transition: all 0.3s;" onmouseover="this.style.borderColor='#d4a574';this.style.color='#d4a574'" onmouseout="this.style.borderColor='#222';this.style.color='#9a9aad'">📧 뉴스레터</a>
+    <a href="https://www.linkedin.com/in/park-ian/" target="_blank" style="display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.45rem 1rem; border-radius: 100px; border: 1px solid var(--border); background: var(--bg-card); color: var(--text-sec); text-decoration: none; font-size: 0.72rem; font-weight: 500; transition: all 0.3s;" onmouseover="this.style.borderColor='#448aff';this.style.color='#448aff'" onmouseout="this.style.borderColor='#222';this.style.color='#9a9aad'">💼 LinkedIn</a>
+    <a href="https://www.instagram.com/ianpark.vc/" target="_blank" style="display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.45rem 1rem; border-radius: 100px; border: 1px solid var(--border); background: var(--bg-card); color: var(--text-sec); text-decoration: none; font-size: 0.72rem; font-weight: 500; transition: all 0.3s;" onmouseover="this.style.borderColor='#b388ff';this.style.color='#b388ff'" onmouseout="this.style.borderColor='#222';this.style.color='#9a9aad'">📸 Instagram</a>    <a href="https://www.youtube.com/@svweekly" target="_blank" style="display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.45rem 1rem; border-radius: 100px; border: 1px solid var(--border); background: var(--bg-card); color: var(--text-sec); text-decoration: none; font-size: 0.72rem; font-weight: 500; transition: all 0.3s;" onmouseover="this.style.borderColor='#ff5252';this.style.color='#ff5252'" onmouseout="this.style.borderColor='#222';this.style.color='#9a9aad'">▶️ 유튜브</a>
+    <a href="https://open.kakao.com/o/gC0BXKeh" target="_blank" style="display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.45rem 1rem; border-radius: 100px; border: 1px solid var(--border); background: var(--bg-card); color: var(--text-sec); text-decoration: none; font-size: 0.72rem; font-weight: 500; transition: all 0.3s;" onmouseover="this.style.borderColor='#ffd740';this.style.color='#ffd740'" onmouseout="this.style.borderColor='#222';this.style.color='#9a9aad'">💬 공지방</a>
+    <a href="https://open.kakao.com/o/giVTdw8d" target="_blank" style="display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.45rem 1rem; border-radius: 100px; border: 1px solid var(--border); background: var(--bg-card); color: var(--text-sec); text-decoration: none; font-size: 0.72rem; font-weight: 500; transition: all 0.3s;" onmouseover="this.style.borderColor='#ffd740';this.style.color='#ffd740'" onmouseout="this.style.borderColor='#222';this.style.color='#9a9aad'">💬 스타트업/VC/LP 카톡방(비번 2060)</a>
+  </div>
+
+  <!-- SUBMIT PITCH DECK -->
+  <div class="section-label">🚀 피치덱 제출하기 </div>
+  <div class="report-list" style="margin-bottom: 3rem;">
+    <a class="report-card" href="https://forms.gle/2kMHMuezaniHMRFPA" target="_blank" style="border-color: #2a2a3a;">
+      <div class="report-card-top">
+        <div class="report-card-title">📩 이안에게 피치덱 검토받기</div>
+        <div class="report-card-badges">
+          <span class="badge" style="background:rgba(212,165,116,0.15);color:#d4a574;">Open</span>
+        </div>
+      </div>
+      <div class="report-card-desc">
+        20명의 실존 VC/사상가 페르소나와 함께 이안이 여러분의 피치덱을 투자위원회 시뮬레이션으로 분석합니다. 피치덱(PDF)을 제출해 주시면, 10인 독립 평가 + 3인 패널의 5라운드 토론 + 액션 플랜이 담긴 풀 리포트를 기반으로 검토한 뒤, 저와 핏이 맞다면 콜을 요청드리겠습니다.
+      </div>
+      <div class="report-card-desc" style="margin-top: -0.25rem; padding-top: 0.75rem; border-top: 1px solid var(--border); color: var(--text-muted); font-size: 0.8rem;">
+        <strong style="color: var(--text);">Ian Park</strong> · Venture Partner @ Principal Venture Partners · Asan Nanum Foundation · Former Partner @ Sazze Partners · VC 뉴스레터 "주간실리콘밸리"(1.1만 구독자) 저자 · Venture Capital Journal 선정 VC Rising Star 2024
+      </div>
+      <div class="report-card-meta">
+        <div class="report-card-tags">
+          <span class="tag">Pre-Seed ~ Series A</span>
+          <span class="tag">PDF Upload</span>
+        </div>
+        <span class="report-card-arrow">Submit →</span>
+      </div>
+    </a>
+  </div>
+
+  <!-- PROMPT -->
+  <div class="section-label">🧠 How It Works</div>
+  <div class="report-list" style="margin-bottom: 3rem;">
+    <a class="report-card" href="prompt.html" style="border-color: #2a2a3a;">
+      <div class="report-card-top">
+        <div class="report-card-title">⚙️ AIVC Prompt — System Instructions</div>
+        <div class="report-card-badges">
+          <span class="badge" style="background:rgba(179,136,255,0.12);color:#b388ff;">Open Source</span>
+        </div>
+      </div>
+      <div class="report-card-desc">
+        20명의 VC 페르소나, 4단계 분석 파이프라인, 5라운드 토론 구조 — IC 시뮬레이션의 전체 프롬프트와 작동 원리.
+      </div>
+      <div class="report-card-meta">
+        <div class="report-card-tags">
+          <span class="tag">Prompt Engineering</span>
+          <span class="tag">20 Personas</span>
+          <span class="tag">Copy & Use</span>
+        </div>
+        <span class="report-card-arrow">View →</span>
+      </div>
+    </a>
+  </div>
+
+  <!-- REPORTS -->
+  <div class="section-label">📄 Published Reports</div>
+
+  <div class="report-list">
+
+    <!-- UberCab 2008 -->
+    <a class="report-card" href="uber_2008.html">
+      <div class="report-card-top">
+        <div class="report-card-title">🚗 UberCab — 2008 Original Pitch Deck</div>
+        <div class="report-card-badges">
+          <span class="badge new">New</span>
+          <span class="badge invest">🟢 Invest ×4</span>
+          <span class="badge pass">🔴 Pass ×2</span>
+          <span class="badge dig">🟡 Dig Deeper ×4</span>
+          <span class="badge stage">Pre-Seed</span>
+        </div>
+      </div>
+      <div class="report-card-desc">
+        Mercedes 3대로 시작하는 자산 보유형 모델, 유닛 이코노믹스 전무, 팀 슬라이드 부재 — 그러나 $4.2B 교통 시장의 소프트웨어 디스럽션이라는 역사적 기회. "잘못된 모델, 완벽한 시장." 결국 $150B+ 기업.
+      </div>
+      <div class="report-card-meta">
+        <div class="report-card-tags">
+          <span class="tag">Transportation</span>
+          <span class="tag">Marketplace</span>
+          <span class="tag">Mobile</span>
+        </div>
+        <span class="report-card-arrow">Read →</span>
+      </div>
+    </a>
+
+    <!-- WeWork 2012 -->
+    <a class="report-card" href="wework_2012.html">
+      <div class="report-card-top">
+        <div class="report-card-title">🏢 WeWork — 2012 Pitch Deck</div>
+        <div class="report-card-badges">
+          <span class="badge invest">🟢 Invest ×4</span>
+          <span class="badge pass">🔴 Pass ×3</span>
+          <span class="badge dig">🟡 Dig Deeper ×3</span>
+          <span class="badge stage">Series B</span>
+        </div>
+      </div>
+      <div class="report-card-desc">
+        Adam Neumann의 "Space as a Service" 피치. 커뮤니티 플랫폼 vs 부동산 임대차익 논쟁, 장기 리스 리스크, 그리고 $47B 밸류에이션에서 파산까지 — 역대급 VC 경고등.
+      </div>
+      <div class="report-card-meta">
+        <div class="report-card-tags">
+          <span class="tag">Real Estate</span>
+          <span class="tag">SaaS?</span>
+          <span class="tag">Cautionary Tale</span>
+        </div>
+        <span class="report-card-arrow">Read →</span>
+      </div>
+    </a>
+
+    <!-- Facebook 2004 -->
+    <a class="report-card" href="facebook_2004.html">
+      <div class="report-card-top">
+        <div class="report-card-title">👤 thefacebook — 2004 Pitch Deck</div>
+        <div class="report-card-badges">
+          <span class="badge invest">🟢 Invest ×9</span>
+          <span class="badge pass">🔴 Pass ×0</span>
+          <span class="badge dig">🟡 Dig Deeper ×1</span>
+          <span class="badge stage">Seed</span>
+        </div>
+      </div>
+      <div class="report-card-desc">
+        하버드 기숙사에서 시작된 소셜 네트워크. 19세 Mark Zuckerberg, Harvard 학생 75% 가입, D1 리텐션 65%+. Peter Thiel의 역사적인 $500K 첫 외부 투자. 패스 0명 — 만장일치에 가까운 역대급 딜.
+      </div>
+      <div class="report-card-meta">
+        <div class="report-card-tags">
+          <span class="tag">Social Network</span>
+          <span class="tag">Network Effects</span>
+          <span class="tag">Platform</span>
+        </div>
+        <span class="report-card-arrow">Read →</span>
+      </div>
+    </a>
+
+    <!-- YouTube 2005 -->
+    <a class="report-card" href="youtube-2005.html">
+      <div class="report-card-top">
+        <div class="report-card-title">▶️ YouTube — 2005 Pitch Deck</div>
+        <div class="report-card-badges">
+          <span class="badge invest">🟢 Invest ×6</span>
+          <span class="badge pass">🔴 Pass ×2</span>
+          <span class="badge dig">🟡 Dig Deeper ×2</span>
+          <span class="badge stage">Seed</span>
+        </div>
+      </div>
+      <div class="report-card-desc">
+        비디오 호스팅의 대역폭 지옥과 저작권 시한폭탄에도 불구, "비즈니스 모델은 비어있지만 유저 습관은 이미 차있다." 런칭 16개월 만에 Google $1.65B 인수.
+      </div>
+      <div class="report-card-meta">
+        <div class="report-card-tags">
+          <span class="tag">Video</span>
+          <span class="tag">UGC</span>
+          <span class="tag">Acquisition</span>
+        </div>
+        <span class="report-card-arrow">Read →</span>
+      </div>
+    </a>
+
+    <!-- Airbnb 2008 -->
+    <a class="report-card" href="airbnb-2008.html">
+      <div class="report-card-top">
+        <div class="report-card-title">🏠 AirBed&Breakfast — 2008 Original Pitch Deck</div>
+        <div class="report-card-badges">
+          <span class="badge invest">🟢 Invest ×2</span>
+          <span class="badge dig">🟡 Dig Deeper ×1</span>
+          <span class="badge stage">Angel</span>
+        </div>
+      </div>
+      <div class="report-card-desc">
+        7번 거절당한 에어매트리스 스타트업의 $500K Angel 피치. 2020년 IPO 시가총액 $100B+. Marc Andreessen(Bull) vs Bill Gurley(Bear) vs Clayton Christensen(Wild Card)의 5라운드 IC 토론.
+      </div>
+      <div class="report-card-meta">
+        <div class="report-card-tags">
+          <span class="tag">Marketplace</span>
+          <span class="tag">Hospitality</span>
+          <span class="tag">Disruption</span>
+        </div>
+        <span class="report-card-arrow">Read →</span>
+      </div>
+    </a>
+
+  </div>
+
+  <!-- ABOUT -->
+  <div class="section-label">🧠 About This Project</div>
+  <div class="about">
+    <h3>여러분의 피치덱, 20명의 VC가 심사한다면?</h3>
+    <p>AIVC Reports는 스타트업 피치덱을 AI 시뮬레이션으로 분석하는 프로젝트입니다. 20명의 실존 VC와 사상가 페르소나가 각자의 투자 철학, 프레임워크, 말투로 독립 평가하고, 선별된 3인이 5라운드 IC 토론을 벌입니다.</p>
+    <p>세계 최고의 인사이트를 가진 투자자들이 여러분의 비지니스에 대해 그들의 시점과 정보만으로 최고의 투자 결정을 시뮬레이션합니다.</p>
+    <div class="persona-grid">
+      <span class="persona-chip">🟣 Peter Thiel</span>
+      <span class="persona-chip">🔵 Marc Andreessen</span>
+      <span class="persona-chip">🩷 Bill Gurley</span>
+      <span class="persona-chip">🟤 Elad Gil</span>
+      <span class="persona-chip">🟢 Fred Wilson</span>
+      <span class="persona-chip">⚫ Arjun Sethi</span>
+      <span class="persona-chip">🔷 Reid Hoffman</span>
+      <span class="persona-chip">🌐 Sam Altman</span>
+      <span class="persona-chip">🟡 Garry Tan</span>
+      <span class="persona-chip">🧘 Naval Ravikant</span>
+      <span class="persona-chip">🟠 Paul Graham</span>
+      <span class="persona-chip">📘 Clayton Christensen</span>
+      <span class="persona-chip">🚀 Elon Musk</span>
+      <span class="persona-chip">📊 Thales Teixeira</span>
+      <span class="persona-chip">🌿 Vinod Khosla</span>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>AIVC Reports · Powered by AI · <a href="https://github.com/ianparkvc/aivc_reports" target="_blank">GitHub</a></p>
+  </footer>
+
+</div>
+
+</body>
+</html>

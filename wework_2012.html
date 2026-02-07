@@ -1,0 +1,1252 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VC IC Analysis — WeWork (2014)</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Sora:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ww-gold: #c8a951;
+  --ww-gold-dim: #a08430;
+  --ww-dark: #1a1a1a;
+  --bull: #00c853;
+  --bear: #ff1744;
+  --wild: #ff9100;
+  --dig: #ffd600;
+  --bg: #0c0b0a;
+  --surface: #151413;
+  --surface2: #1e1d1b;
+  --text: #e5e2dc;
+  --text-dim: #918e87;
+  --accent: var(--ww-gold);
+  --border: rgba(200,169,81,0.08);
+  --border2: rgba(255,255,255,0.05);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Sora', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+.grain {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.container { max-width: 920px; margin: 0 auto; padding: 0 24px; }
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding: 80px 0;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -30%; right: -20%;
+  width: 700px; height: 700px;
+  background: radial-gradient(circle, rgba(200,169,81,0.07) 0%, transparent 70%);
+  animation: drift 12s ease-in-out infinite alternate;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -20%; left: -15%;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(255,23,68,0.04) 0%, transparent 70%);
+  animation: drift 10s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes drift {
+  0% { transform: translate(0,0); }
+  100% { transform: translate(30px, -20px); }
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  background: rgba(200,169,81,0.08);
+  border: 1px solid rgba(200,169,81,0.2);
+  border-radius: 100px;
+  font-size: 13px;
+  color: var(--ww-gold);
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  margin-bottom: 32px;
+  animation: fadeIn 0.8s ease;
+}
+
+.caution-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 14px;
+  background: rgba(255,23,68,0.08);
+  border: 1px solid rgba(255,23,68,0.2);
+  border-radius: 100px;
+  font-size: 12px;
+  color: var(--bear);
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  margin-left: 10px;
+}
+
+.hero h1 {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(44px, 6vw, 76px);
+  font-weight: 400;
+  line-height: 1.1;
+  margin-bottom: 20px;
+  animation: fadeUp 1s ease;
+}
+
+.hero h1 span {
+  background: linear-gradient(135deg, var(--ww-gold), #e8d48b, var(--ww-gold-dim));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero h1 .strike {
+  text-decoration: line-through;
+  text-decoration-color: var(--bear);
+  -webkit-text-fill-color: var(--text-dim);
+  background: none;
+  opacity: 0.4;
+}
+
+.hero-sub {
+  font-size: 18px;
+  color: var(--text-dim);
+  max-width: 640px;
+  animation: fadeUp 1s ease 0.2s both;
+  line-height: 1.7;
+}
+
+.hero-meta {
+  margin-top: 40px;
+  display: flex;
+  gap: 28px;
+  flex-wrap: wrap;
+  animation: fadeUp 1s ease 0.4s both;
+}
+
+.hero-meta-item { display: flex; flex-direction: column; }
+.hero-meta-item .label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--text-dim);
+  margin-bottom: 4px;
+}
+.hero-meta-item .value {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  color: var(--ww-gold);
+}
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+/* STAGE */
+.stage-divider {
+  padding: 80px 0 40px;
+  border-top: 1px solid var(--border);
+  margin-top: 60px;
+}
+.stage-number {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--ww-gold);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.stage-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 400;
+  margin-bottom: 8px;
+}
+.stage-subtitle { color: var(--text-dim); font-size: 15px; }
+
+/* CARDS */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 12px;
+  padding: 28px;
+  margin-bottom: 16px;
+  transition: border-color 0.3s;
+}
+.card:hover { border-color: rgba(200,169,81,0.12); }
+
+.card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+.card-icon {
+  width: 42px; height: 42px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; flex-shrink: 0;
+}
+.card-name { font-weight: 600; font-size: 16px; }
+.card-tagline { font-size: 13px; color: var(--text-dim); }
+
+.verdict {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 4px 12px; border-radius: 100px;
+  font-size: 13px; font-weight: 600; margin-bottom: 16px;
+}
+.verdict-invest { background: rgba(0,200,83,0.1); color: var(--bull); }
+.verdict-pass { background: rgba(255,23,68,0.1); color: var(--bear); }
+.verdict-dig { background: rgba(255,214,0,0.1); color: var(--dig); }
+
+.strengths, .concerns { margin-bottom: 12px; }
+.strengths h4, .concerns h4 { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+.strengths h4 { color: var(--bull); }
+.concerns h4 { color: var(--bear); }
+.strengths ul, .concerns ul { list-style: none; padding-left: 0; }
+.strengths li, .concerns li {
+  padding: 4px 0; font-size: 14px; color: var(--text-dim);
+  padding-left: 18px; position: relative;
+}
+.strengths li::before { content: '▲'; position: absolute; left: 0; font-size: 9px; color: var(--bull); top: 7px; }
+.concerns li::before { content: '▼'; position: absolute; left: 0; font-size: 9px; color: var(--bear); top: 7px; }
+
+.unique-take {
+  background: var(--surface2);
+  border-radius: 8px;
+  padding: 14px 18px;
+  font-size: 14px;
+  color: var(--text);
+  border-left: 3px solid var(--ww-gold);
+  margin-top: 12px;
+  font-style: italic;
+}
+
+/* DEBATE */
+.round { margin-bottom: 40px; padding-bottom: 40px; border-bottom: 1px solid var(--border2); }
+.round-header {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px; letter-spacing: 2px; color: var(--ww-gold);
+  margin-bottom: 24px; text-transform: uppercase;
+}
+
+.debate-entry {
+  margin-bottom: 24px; padding: 24px;
+  border-radius: 12px; border: 1px solid var(--border2);
+}
+.debate-entry.bull { border-left: 3px solid var(--bull); background: rgba(0,200,83,0.02); }
+.debate-entry.bear { border-left: 3px solid var(--bear); background: rgba(255,23,68,0.02); }
+.debate-entry.wild { border-left: 3px solid var(--wild); background: rgba(255,145,0,0.02); }
+
+.debate-role { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 4px; }
+.debate-role.bull-role { color: var(--bull); }
+.debate-role.bear-role { color: var(--bear); }
+.debate-role.wild-role { color: var(--wild); }
+.debate-speaker { font-weight: 600; font-size: 16px; margin-bottom: 12px; }
+.debate-text { font-size: 14px; color: var(--text-dim); line-height: 1.8; }
+.debate-text strong { color: var(--text); }
+
+/* FINAL VERDICTS */
+.final-verdict {
+  display: flex; align-items: center; gap: 16px;
+  padding: 20px 24px; background: var(--surface);
+  border: 1px solid var(--border2); border-radius: 12px; margin-bottom: 12px;
+}
+.fv-emoji { font-size: 28px; flex-shrink: 0; }
+.fv-name { font-weight: 600; font-size: 15px; }
+.fv-verdict { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600; }
+.fv-reason { font-size: 14px; color: var(--text-dim); }
+
+/* INSIGHTS */
+.insight-item { padding: 24px 0; border-bottom: 1px solid var(--border2); }
+.insight-num {
+  font-family: 'Instrument Serif', serif;
+  font-size: 32px; color: var(--ww-gold); opacity: 0.35; margin-bottom: 4px;
+}
+.insight-title { font-weight: 600; font-size: 16px; margin-bottom: 8px; }
+.insight-desc { font-size: 14px; color: var(--text-dim); line-height: 1.7; }
+
+/* QUESTIONS */
+.q-section { margin-bottom: 32px; }
+.q-section-header {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 16px;
+  padding-bottom: 12px; border-bottom: 1px solid var(--border2);
+}
+.q-section-header .emoji { font-size: 20px; }
+.q-section-header .name { font-weight: 600; }
+.q-list { list-style: none; counter-reset: q; }
+.q-list li {
+  counter-increment: q; padding: 10px 0; padding-left: 32px;
+  position: relative; font-size: 14px; color: var(--text-dim); line-height: 1.6;
+}
+.q-list li::before {
+  content: counter(q); position: absolute; left: 0;
+  font-family: 'JetBrains Mono', monospace; font-size: 12px;
+  color: var(--ww-gold); background: rgba(200,169,81,0.08);
+  width: 22px; height: 22px; border-radius: 6px;
+  display: flex; align-items: center; justify-content: center; top: 11px;
+}
+
+/* ACTION PLAN */
+.action-plan {
+  background: var(--surface); border: 1px solid var(--border2);
+  border-radius: 12px; padding: 28px; margin-bottom: 20px;
+}
+.action-plan h4 { font-size: 16px; margin-bottom: 16px; }
+.action-step { display: flex; gap: 14px; margin-bottom: 14px; }
+.step-num {
+  width: 28px; height: 28px; border-radius: 8px;
+  background: rgba(200,169,81,0.08); color: var(--ww-gold);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'JetBrains Mono', monospace; font-size: 13px;
+  font-weight: 600; flex-shrink: 0; margin-top: 2px;
+}
+.step-text { font-size: 14px; color: var(--text-dim); line-height: 1.6; }
+.step-text strong { color: var(--text); }
+
+/* EXEC SUMMARY */
+.exec-summary {
+  background: linear-gradient(135deg, rgba(200,169,81,0.06), rgba(255,23,68,0.04));
+  border: 1px solid rgba(200,169,81,0.15);
+  border-radius: 16px; padding: 40px; margin: 40px 0 80px;
+}
+.exec-summary h3 { font-family: 'Instrument Serif', serif; font-size: 24px; margin-bottom: 16px; }
+.exec-summary p { font-size: 15px; line-height: 1.8; color: var(--text-dim); }
+
+/* DEAL MEMO */
+.deal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+.deal-item { background: var(--surface); border: 1px solid var(--border2); border-radius: 10px; padding: 20px; }
+.deal-label { font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-dim); margin-bottom: 8px; }
+.deal-value { font-size: 14px; font-weight: 400; line-height: 1.6; }
+
+.trigger-box {
+  background: rgba(255,23,68,0.04); border: 1px solid rgba(255,23,68,0.12);
+  border-radius: 12px; padding: 24px; margin-top: 24px;
+}
+.trigger-box h4 { color: var(--bear); font-size: 14px; margin-bottom: 12px; }
+.trigger-box li { font-size: 14px; color: var(--text-dim); padding: 4px 0; }
+
+/* PANEL */
+.panel-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 24px; }
+.panel-card { border-radius: 12px; padding: 24px; text-align: center; }
+.panel-card.bull-panel { background: rgba(0,200,83,0.04); border: 1px solid rgba(0,200,83,0.15); }
+.panel-card.bear-panel { background: rgba(255,23,68,0.04); border: 1px solid rgba(255,23,68,0.15); }
+.panel-card.wild-panel { background: rgba(255,145,0,0.04); border: 1px solid rgba(255,145,0,0.15); }
+.panel-role { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px; }
+.panel-card.bull-panel .panel-role { color: var(--bull); }
+.panel-card.bear-panel .panel-role { color: var(--bear); }
+.panel-card.wild-panel .panel-role { color: var(--wild); }
+.panel-name { font-weight: 600; font-size: 15px; margin-bottom: 4px; }
+.panel-reason { font-size: 12px; color: var(--text-dim); line-height: 1.5; }
+
+/* HINDSIGHT BOX */
+.hindsight {
+  background: rgba(255,23,68,0.03);
+  border: 1px solid rgba(255,23,68,0.1);
+  border-radius: 14px;
+  padding: 32px;
+  margin: 40px 0;
+  position: relative;
+  overflow: hidden;
+}
+.hindsight::before {
+  content: '⚠️';
+  position: absolute;
+  top: -20px; right: -10px;
+  font-size: 100px;
+  opacity: 0.05;
+}
+.hindsight h4 {
+  color: var(--bear);
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 12px;
+}
+.hindsight p { font-size: 14px; color: var(--text-dim); line-height: 1.7; }
+
+.team-grid { display: flex; gap: 12px; flex-wrap: wrap; margin: 12px 0; }
+.team-member { padding: 8px 16px; background: var(--surface2); border-radius: 8px; font-size: 14px; }
+.team-member strong { color: var(--ww-gold); }
+
+.footer {
+  text-align: center; padding: 60px 0; color: var(--text-dim);
+  font-size: 13px; border-top: 1px solid var(--border2);
+}
+
+@media (max-width: 768px) {
+  .deal-grid, .panel-grid { grid-template-columns: 1fr; }
+  .hero-meta { flex-direction: column; gap: 16px; }
+}
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+
+<div class="container">
+
+<!-- ═══════════ HERO ═══════════ -->
+<section class="hero">
+  <div>
+    <span class="hero-badge">🏛️ INVESTMENT COMMITTEE SIMULATION</span>
+    <span class="caution-badge">⚠️ CAUTIONARY TALE</span>
+  </div>
+  <h1><span>WeWork</span><br><span class="strike">$47B → $0</span></h1>
+  <p class="hero-sub">"Space as a Service" — 역사상 가장 화려했고 가장 처참하게 무너진 스타트업. 2014년 피치덱을 15명의 VC가 분석한다면, 재앙을 예견할 수 있었을까?</p>
+  <div class="hero-meta">
+    <div class="hero-meta-item">
+      <span class="label">Company</span>
+      <span class="value">WeWork</span>
+    </div>
+    <div class="hero-meta-item">
+      <span class="label">Stage</span>
+      <span class="value">Series D–E (2014)</span>
+    </div>
+    <div class="hero-meta-item">
+      <span class="label">Founded</span>
+      <span class="value">2010 NYC</span>
+    </div>
+    <div class="hero-meta-item">
+      <span class="label">Locations</span>
+      <span class="value">20</span>
+    </div>
+    <div class="hero-meta-item">
+      <span class="label">Members</span>
+      <span class="value">15,000 → 40K+</span>
+    </div>
+    <div class="hero-meta-item">
+      <span class="label">Revenue</span>
+      <span class="value">$628M (run rate)</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ STAGE 1 ═══════════ -->
+<section class="stage-divider">
+  <div class="stage-number">📋 Stage 1</div>
+  <h2 class="stage-title">딜 메모 추출</h2>
+  <p class="stage-subtitle">피치덱에서 구조화된 투자 정보 추출</p>
+</section>
+
+<h3 style="font-family:'Instrument Serif',serif; font-size:24px; margin:32px 0 20px;">Deal Structure</h3>
+
+<div class="deal-grid">
+  <div class="deal-item">
+    <div class="deal-label">Problem</div>
+    <div class="deal-value">밀레니얼 세대의 독립 노동자(프리랜서, 소규모 기업) 급증. 기존 상업용 부동산은 장기 임대, 높은 초기 비용, 유연성 없음. "일하는 방식"이 변하고 있지만 "일하는 공간"은 안 변함.</div>
+  </div>
+  <div class="deal-item">
+    <div class="deal-label">Solution</div>
+    <div class="deal-value">"Space as a Service" — 유연한 멤버십 기반 공유 오피스. 생산성과 디자인을 겸비한 워크스페이스. 커뮤니티 + 네트워킹 가치 제공. 전통 임대 대비 25% 비용 절감.</div>
+  </div>
+  <div class="deal-item">
+    <div class="deal-label">Business Model</div>
+    <div class="deal-value">장기 임대 계약(10-15년)으로 공간 확보 → 리모델링 → 단기 멤버십(월 단위)으로 재판매. 임대 차익(arbitrage) + 멤버 밀도 최적화. 수익: 멤버십 + 부가 서비스.</div>
+  </div>
+  <div class="deal-item">
+    <div class="deal-label">Stage</div>
+    <div class="deal-value">Series D-E 단계 (2014년). 20개 지점 운영 중. Revenue run rate $628M. 매출+EBITDA 성장 차트 제시. 급속 확장기 진입.</div>
+  </div>
+</div>
+
+<h3 style="font-family:'Instrument Serif',serif; font-size:24px; margin:32px 0 20px;">Key Metrics</h3>
+
+<div class="deal-grid">
+  <div class="deal-item">
+    <div class="deal-label">Market Size</div>
+    <div class="deal-value">TAM: 독립 노동자 — 2014년 4,500만 명(33%), 2020년 6,000만 명(40%) 예상<br>글로벌 상업용 부동산 시장 $3.3T<br>SOM: 밀레니얼 크리에이티브/테크 워커</div>
+  </div>
+  <div class="deal-item">
+    <div class="deal-label">Traction</div>
+    <div class="deal-value">15,000 → 40,000+ 멤버 (급성장 곡선)<br>20개 지점 (NYC 기반)<br>Revenue run rate $628M<br>EBITDA 양수 전환 시도 중<br>Top-line 가속화 + 멤버당 수익 상승</div>
+  </div>
+  <div class="deal-item">
+    <div class="deal-label">Value Prop</div>
+    <div class="deal-value">전통 오피스 임대 대비 25% 비용 절감<br>멤버십 비용 < 표준 임대(렌트+초기 비용+오피스 경비+관리비)<br>"유일한 글로벌, 잘 자본화된 Space as a Service 제공자"</div>
+  </div>
+  <div class="deal-item">
+    <div class="deal-label">Ask</div>
+    <div class="deal-value">명시되지 않음 (이 덱은 2014년 기준).<br>역사적으로: 2014년 $355M Series D @ $5B 밸류에이션. 이후 급속히 $47B까지 상승.</div>
+  </div>
+</div>
+
+<h3 style="font-family:'Instrument Serif',serif; font-size:24px; margin:32px 0 20px;">Team</h3>
+<div class="team-grid">
+  <div class="team-member"><strong>Adam Neumann</strong> — Co-Founder & CEO (이스라엘 출신, 카리스마적 리더)</div>
+  <div class="team-member"><strong>Miguel McKelvey</strong> — Co-Founder & Chief Creative Officer</div>
+</div>
+
+<h3 style="font-family:'Instrument Serif',serif; font-size:24px; margin:32px 0 20px;">Competition & Differentiation</h3>
+<div class="card">
+  <p style="font-size:14px; color:var(--text-dim);">
+    <strong style="color:var(--text)">Regus/IWG</strong> — 글로벌 최대, 하지만 기업용/무미건조, 커뮤니티 없음<br>
+    <strong style="color:var(--text)">소규모 코워킹</strong> — 로컬 독립 운영, 스케일 불가능<br>
+    <strong style="color:var(--text)">전통 임대</strong> — 장기 계약, 비유연적, 높은 초기 비용<br><br>
+    <strong style="color:var(--ww-gold)">WeWork 차별점:</strong> "유일한 글로벌, 잘 자본화된" Space as a Service 제공자. 디자인+커뮤니티+브랜드 결합. 밀레니얼 타겟. 25% 비용 절감. 네트워크 효과 주장(멤버 간 비즈니스 연결).
+  </p>
+</div>
+
+<div class="trigger-box">
+  <h4>🚨 Debate Triggers — 토론에서 다뤄야 할 쟁점</h4>
+  <ul style="list-style:none; padding:0;">
+    <li>• "테크 회사"인가 "부동산 회사"인가? — 밸류에이션의 근본적 문제</li>
+    <li>• 장기 임대 부채 vs 단기 멤버십 수익 — 경기 침체 시 구조적 리스크</li>
+    <li>• 유닛 이코노믹스: 지점당 손익분기까지 몇 개월? 성숙 지점 마진은?</li>
+    <li>• "커뮤니티"와 "네트워크 효과"는 진짜인가 마케팅인가?</li>
+    <li>• Adam Neumann의 "비전"과 실제 실행 간 괴리</li>
+    <li>• 확장할수록 적자가 커지는 구조 — EBITDA 양수 전환이 언제?</li>
+    <li>• Regus는 왜 테크 밸류에이션을 못 받는데 WeWork는 받는가?</li>
+  </ul>
+</div>
+
+<h3 style="font-family:'Instrument Serif',serif; font-size:24px; margin:40px 0 20px;">🎭 토론 패널 선정</h3>
+
+<div class="panel-grid">
+  <div class="panel-card bull-panel">
+    <div class="panel-role">🟢 The Bull</div>
+    <div class="panel-name">Marc Andreessen 🔵</div>
+    <div class="panel-reason">"Software is eating real estate." 기존 산업의 디스럽션 관점에서 WeWork를 가장 긍정적으로 볼 수 있는 VC.</div>
+  </div>
+  <div class="panel-card bear-panel">
+    <div class="panel-role">🔴 The Bear</div>
+    <div class="panel-name">Bill Gurley 🩷</div>
+    <div class="panel-reason">유닛 이코노믹스와 밸류에이션 규율의 대가. 장기 임대/단기 수익의 미스매치를 가장 날카롭게 파헤칠 인물.</div>
+  </div>
+  <div class="panel-card wild-panel">
+    <div class="panel-role">🃏 Wild Card</div>
+    <div class="panel-name">Peter Thiel 🟣</div>
+    <div class="panel-reason">"이건 진짜 독점인가?" — Zero to One 렌즈로 WeWork의 해자를 근본적으로 질문할 인물.</div>
+  </div>
+</div>
+
+<!-- ═══════════ STAGE 2 ═══════════ -->
+<section class="stage-divider">
+  <div class="stage-number">🧠 Stage 2</div>
+  <h2 class="stage-title">10인 VC 평가</h2>
+  <p class="stage-subtitle">각 VC Guru의 독립적 투자 판단</p>
+</section>
+
+<!-- THIEL -->
+<div class="card">
+  <div class="card-header">
+    <div class="card-icon" style="background:rgba(128,0,255,0.08);">🟣</div>
+    <div>
+      <div class="card-name">Peter Thiel — Zero to One 개척자</div>
+      <div class="card-tagline">"경쟁은 패배자의 것이다"</div>
+    </div>
+  </div>
+  <div class="verdict verdict-pass">🔴 패스</div>
+  <div class="strengths">
+    <h4>강점</h4>
+    <ul>
+      <li>"Space as a Service"라는 프레이밍은 흥미롭다. 카테고리를 재정의하려는 시도 자체는 가치 있음.</li>
+      <li>밀레니얼 독립 노동자 트렌드는 진짜다. 매크로 방향은 맞다.</li>
+    </ul>
+  </div>
+  <div class="concerns">
+    <h4>우려</h4>
+    <ul>
+      <li>독점이 아니다. Regus가 이미 같은 사업을 하고 있고, 누구든 빌딩 임대해서 코워킹 스페이스를 열 수 있다. 진입장벽이 없다.</li>
+      <li>"커뮤니티"는 해자가 아니다. 사무실을 옮기면 커뮤니티도 바뀐다. Facebook의 소셜 그래프와는 비교 불가.</li>
+      <li>이건 1→n이다. 0→1이 아니다. 코워킹이라는 기존 개념을 더 세련되게 만든 것뿐.</li>
+    </ul>
+  </div>
+  <div class="unique-take">"'Space as a Service'라고 부르면 테크 회사가 되는가? 마치 '피자 as a Service'라고 하면 도미노가 SaaS 회사가 되는 것처럼. 독점 테스트를 적용해보자 — WeWork가 사라지면 멤버는 어디로 가는가? Regus나 다른 코워킹으로 간다. 이건 독점이 아니라 브랜드 프리미엄이다. 그리고 브랜드 프리미엄은 10x 밸류에이션을 정당화하지 못한다."</div>
+</div>
+
+<!-- ANDREESSEN -->
+<div class="card">
+  <div class="card-header">
+    <div class="card-icon" style="background:rgba(0,100,255,0.08);">🔵</div>
+    <div>
+      <div class="card-name">Marc Andreessen — Software is Eating the World</div>
+      <div class="card-tagline">"It's time."</div>
+    </div>
+  </div>
+  <div class="verdict verdict-dig">🟡 추가 검토</div>
+  <div class="strengths">
+    <h4>강점</h4>
+    <ul>
+      <li>매크로 트렌드가 완벽하다. 독립 노동자 30%→40%, 원격 근무 증가, 유연한 공간 수요 폭발. 타이밍이 맞다.</li>
+      <li>$628M revenue run rate는 진짜 사업이다. 이건 슬라이드가 아니라 현실. 성장 곡선도 가속하고 있다.</li>
+      <li>기존 부동산 산업의 디스럽션 잠재력. $3.3T 시장에서 0.02% 점유율 — 아직 초기.</li>
+    </ul>
+  </div>
+  <div class="concerns">
+    <h4>우려</h4>
+    <ul>
+      <li>"소프트웨어가 부동산을 먹고 있다"고 하기엔... 소프트웨어 요소가 어디에? 핵심은 물리적 공간 운영이다.</li>
+      <li>테크 마진(70-80%)이 아닌 부동산 마진(10-20%)으로 운영되면서 테크 밸류에이션을 받고 있다. 이 괴리가 문제.</li>
+    </ul>
+  </div>
+  <div class="unique-take">"솔직히 말하면, 이건 내가 투자하는 유형이 아니다. 소프트웨어 레버리지가 없다. 하지만 Adam Neumann의 비전과 실행 속도는 인상적이다. 문제는 이게 '소프트웨어 회사'가 아니라는 걸 인정하면, 밸류에이션이 Regus 수준으로 떨어진다는 것."</div>
+</div>
+
+<!-- GURLEY -->
+<div class="card">
+  <div class="card-header">
+    <div class="card-icon" style="background:rgba(255,105,180,0.08);">🩷</div>
+    <div>
+      <div class="card-name">Bill Gurley — 유닛 이코노믹스의 대가</div>
+      <div class="card-tagline">"All Revenue is Not Created Equal"</div>
+    </div>
+  </div>
+  <div class="verdict verdict-pass">🔴 패스</div>
+  <div class="strengths">
+    <h4>강점</h4>
+    <ul>
+      <li>매출 성장률이 인상적. $628M run rate에서 가속 중이라면 시장 수요는 분명히 존재.</li>
+      <li>25% 비용 절감이라는 명확한 고객 가치 제안. 이건 "nice to have"가 아니라 "must have" 수준.</li>
+    </ul>
+  </div>
+  <div class="concerns">
+    <h4>우려</h4>
+    <ul>
+      <li>유닛 이코노믹스의 구조적 결함. 10-15년 장기 임대 부채 vs 월 단위 멤버십 수익. 경기 침체 시 멤버는 떠나지만 임대료는 계속 나간다. 이건 레버리지가 아니라 시한폭탄이다.</li>
+      <li>EBITDA 차트가 수상하다. "EBITDA"의 정의가 뭔가? WeWork의 "Community-Adjusted EBITDA"같은 창작 지표를 쓰고 있진 않은가?</li>
+      <li>확장할수록 CapEx가 폭발한다. 새 지점 하나 여는 데 인테리어+보증금 수천만 달러. 매출이 아무리 높아도 현금이 빠져나간다.</li>
+    </ul>
+  </div>
+  <div class="unique-take">"이 차트를 보라. Revenue는 올라가고 EBITDA도 올라간다고 주장하지만, 핵심을 빠뜨렸다 — CapEx를 빼면? Free Cash Flow는? 새 지점 오픈 비용을 '투자'로 분류하면 EBITDA는 좋아 보인다. 하지만 현금은 사라지고 있다. 이건 내가 Uber에서 경고했던 것과 동일한 패턴이다 — Growth at all costs. 다만 Uber는 네트워크 효과가 있었고, WeWork는 없다."</div>
+</div>
+
+<!-- ELAD GIL -->
+<div class="card">
+  <div class="card-header">
+    <div class="card-icon" style="background:rgba(139,90,43,0.08);">🟤</div>
+    <div>
+      <div class="card-name">Elad Gil — 하이그로스 핸드북</div>
+      <div class="card-tagline">"시장이 먼저다"</div>
+    </div>
+  </div>
+  <div class="verdict verdict-dig">🟡 추가 검토</div>
+  <div class="strengths">
+    <h4>강점</h4>
+    <ul>
+      <li>시장 타이밍이 좋다. 독립 노동자 트렌드는 구조적이고 되돌릴 수 없는 변화.</li>
+      <li>GTM이 명확하다 — NYC에서 시작, 도시별 확장, 인접 도시로 복제. 플레이북이 있다.</li>
+    </ul>
+  </div>
+  <div class="concerns">
+    <h4>우려</h4>
+    <ul>
+      <li>확장 가능성과 확장 비용이 비례한다. 소프트웨어와 달리, 새 도시 = 새 빌딩 임대 = 새 자본 투입. 한계비용이 감소하지 않는다.</li>
+      <li>Adam Neumann의 비전이 너무 크다. "Space as a Service"에서 주거(WeLive), 교육(WeGrow)까지? 포커스가 흩어지는 신호.</li>
+    </ul>
+  </div>
+  <div class="unique-take">"High Growth Handbook 관점에서 보면, WeWork의 가장 큰 문제는 '스케일링과 동시에 유닛 이코노믹스가 개선되는가?'이다. SaaS는 고객이 늘수록 마진이 좋아진다. WeWork는 고객이 늘수록... 더 많은 빌딩을 빌려야 한다. 이건 스케일링이 아니라 스케일링의 환상이다."</div>
+</div>
+
+<!-- FRED WILSON -->
+<div class="card">
+  <div class="card-header">
+    <div class="card-icon" style="background:rgba(0,200,83,0.08);">🟢</div>
+    <div>
+      <div class="card-name">Fred Wilson — 네트워크 효과의 수호자</div>
+      <div class="card-tagline">"네트워크 효과가 최고의 방어벽"</div>
+    </div>
+  </div>
+  <div class="verdict verdict-pass">🔴 패스</div>
+  <div class="strengths">
+    <h4>강점</h4>
+    <ul>
+      <li>WeWork가 주장하는 "멤버 간 네트워킹"이 실제로 작동하면 흥미로운 네트워크가 될 수 있다.</li>
+    </ul>
+  </div>
+  <div class="concerns">
+    <h4>우려</h4>
+    <ul>
+      <li>네트워크 효과가 없다. WeWork 멤버가 늘어도 기존 멤버의 경험이 나아지지 않는다. NYC 멤버에게 LA 지점이 열리는 건 가치가 아니다.</li>
+      <li>전환 비용이 거의 제로. 옆 건물에 새 코워킹이 열리면 한 달 만에 옮길 수 있다. 락인이 없다.</li>
+      <li>이건 커뮤니티 비즈니스가 아니라 부동산 임대 비즈니스에 "커뮤니티" 마케팅을 입힌 것.</li>
+    </ul>
+  </div>
+  <div class="unique-take">"내가 Twitter, Etsy, Coinbase에 투자한 이유는 네트워크 효과였다. 유저가 유저를 부르는 선순환. WeWork에서 그걸 찾으려 했지만 못 찾겠다. 한 멤버가 더 들어온다고 내 데스크가 더 좋아지나? 아니. 오히려 라운지가 더 붐빈다. 이건 역 네트워크 효과에 가깝다."</div>
+</div>
+
+<!-- ARJUN SETHI -->
+<div class="card">
+  <div class="card-header">
+    <div class="card-icon" style="background:rgba(30,30,30,0.2);">⚫</div>
+    <div>
+      <div class="card-name">Arjun Sethi — Data Doesn't Lie</div>
+      <div class="card-tagline">"데이터를 보여줘"</div>
+    </div>
+  </div>
+  <div class="verdict verdict-pass">🔴 패스</div>
+  <div class="strengths">
+    <h4>강점</h4>
+    <ul>
+      <li>멤버 성장 곡선이 인상적. J-커브 형태로 가속 중. 시장 수요가 실재함을 보여준다.</li>
+    </ul>
+  </div>
+  <div class="concerns">
+    <h4>우려</h4>
+    <ul>
+      <li>리텐션 데이터가 없다. 멤버가 평균 몇 개월 머무는가? 이직률(churn rate)은? 이 숫자 없이는 LTV 계산 불가.</li>
+      <li>코호트 분석이 없다. 초기 지점 vs 최근 지점의 수익성 차이는? 성숙한 지점의 마진은?</li>
+      <li>"Revenue run rate" vs 실제 인식된 매출. Run rate는 허영 지표일 수 있다.</li>
+    </ul>
+  </div>
+  <div class="unique-take">"Tribe Capital의 Magic 8-Ball로 이 덱을 분석하면 빨간불이 켜진다. 성장 데이터는 보여주면서 리텐션은 숨기고, 매출은 보여주면서 코호트별 분석은 없다. 좋은 회사는 모든 데이터를 보여준다. 숨기는 데이터가 있다면 — 그 데이터가 가장 중요하다."</div>
+</div>
+
+<!-- REID HOFFMAN -->
+<div class="card">
+  <div class="card-header">
+    <div class="card-icon" style="background:rgba(0,120,215,0.08);">🔷</div>
+    <div>
+      <div class="card-name">Reid Hoffman — 블리츠스케일링 창시자</div>
+      <div class="card-tagline">"속도가 곧 전략이다"</div>
+    </div>
+  </div>
+  <div class="verdict verdict-dig">🟡 추가 검토</div>
+  <div class="strengths">
+    <h4>강점</h4>
+    <ul>
+      <li>확장 속도가 인상적. 20개 지점 in 4 years, 가속 중. 블리츠스케일링 마인드셋은 있다.</li>
+      <li>WTA 가능성이 있긴 하다 — 가장 많은 도시에 있는 코워킹 브랜드가 기업 고객을 독점할 수 있다.</li>
+    </ul>
+  </div>
+  <div class="concerns">
+    <h4>우려</h4>
+    <ul>
+      <li>블리츠스케일링은 네트워크 효과가 있는 시장에서만 의미가 있다. WeWork는? 더 빨리 확장한다고 해자가 깊어지지 않는다.</li>
+      <li>물리적 확장의 속도 한계. 소프트웨어는 하루에 100만 유저를 추가할 수 있지만, 빌딩은 하루에 하나도 열기 어렵다.</li>
+    </ul>
+  </div>
+  <div class="unique-take">"블리츠스케일링의 핵심 조건은 '속도가 경쟁자의 진입을 막는가'이다. LinkedIn에서는 맞았다 — 프로페셔널 네트워크에 먼저 도달하면 후발주자가 따라올 수 없으니까. WeWork에서 빠른 확장이 후발주자를 막는가? 아니. 내가 건물 하나 빌려서 옆에 코워킹을 열 수 있다. 속도가 해자를 만들지 않는 시장에서 블리츠스케일링은 그냥 '빠른 돈 태우기'다."</div>
+</div>
+
+<!-- SAM ALTMAN -->
+<div class="card">
+  <div class="card-header">
+    <div class="card-icon" style="background:rgba(0,180,180,0.08);">🌐</div>
+    <div>
+      <div class="card-name">Sam Altman — Think Bigger</div>
+      <div class="card-tagline">"10억 명에게 영향을 미칠 수 있는가?"</div>
+    </div>
+  </div>
+  <div class="verdict verdict-dig">🟡 추가 검토</div>
+  <div class="strengths">
+    <h4>강점</h4>
+    <ul>
+      <li>비전의 크기는 충분하다. "일하는 방식을 바꾼다"는 미션. 6,000만 독립 노동자 시장.</li>
+      <li>Adam Neumann의 야망과 에너지는 최상위 창업자 수준.</li>
+    </ul>
+  </div>
+  <div class="concerns">
+    <h4>우려</h4>
+    <ul>
+      <li>비전과 비즈니스 모델이 안 맞는다. "세상을 바꾸겠다"는 미션이 "빌딩 임대 차익"이라는 모델에 갇혀있다.</li>
+      <li>기술적 혁신이 없다. YC에서 가장 성공한 회사들은 기술 레버리지가 있었다. WeWork에는 없다.</li>
+    </ul>
+  </div>
+  <div class="unique-take">"YC에서 배운 것: 최고의 창업자는 기술 레버리지를 찾는다. Airbnb는 '빈 방'이라는 유휴 자산을 소프트웨어로 연결했다. WeWork는 '빌딩을 빌려서 잘라 파는' 것이다. 하나는 플랫폼이고, 하나는 중개업이다. 그 차이가 밸류에이션의 차이여야 한다."</div>
+</div>
+
+<!-- GARRY TAN -->
+<div class="card">
+  <div class="card-header">
+    <div class="card-icon" style="background:rgba(255,200,0,0.08);">🟡</div>
+    <div>
+      <div class="card-name">Garry Tan — Anti-Mimetic Investing</div>
+      <div class="card-tagline">"남들이 안 보는 곳에서"</div>
+    </div>
+  </div>
+  <div class="verdict verdict-pass">🔴 패스</div>
+  <div class="strengths">
+    <h4>강점</h4>
+    <ul>
+      <li>밀레니얼 워크스타일 트렌드를 일찍 잡은 건 맞다. 시장 감각은 좋다.</li>
+    </ul>
+  </div>
+  <div class="concerns">
+    <h4>우려</h4>
+    <ul>
+      <li>이건 반모방적 투자의 정반대다. 모두가 WeWork에 열광하고 있다 — 이건 모방적 욕망의 전형. 주의 신호.</li>
+      <li>창업자-시장 핏이 불안하다. Adam Neumann은 부동산 전문가도, 테크 전문가도 아니다. 비전만 있고 깊이가 없다.</li>
+      <li>"We" 브랜딩 (WeWork, WeLive, WeGrow) — 이건 포커스가 아니라 자아 팽창.</li>
+    </ul>
+  </div>
+  <div class="unique-take">"YC에서 수천 개 스타트업을 봤다. 가장 위험한 창업자 유형은 '비전은 거대하고 해자는 없는' 경우다. WeWork의 Adam Neumann이 정확히 그 유형이다. Coinbase의 Brian Armstrong은 비전과 실행이 일치했다. WeWork는 비전 100, 해자 0이다."</div>
+</div>
+
+<!-- NAVAL -->
+<div class="card">
+  <div class="card-header">
+    <div class="card-icon" style="background:rgba(100,150,150,0.08);">🧘</div>
+    <div>
+      <div class="card-name">Naval Ravikant — Specific Knowledge + Leverage</div>
+      <div class="card-tagline">"레버리지가 있는 구조인가?"</div>
+    </div>
+  </div>
+  <div class="verdict verdict-pass">🔴 패스</div>
+  <div class="strengths">
+    <h4>강점</h4>
+    <ul>
+      <li>노동 레버리지(직원)와 자본 레버리지(임대)를 활용한 확장. 전통적이지만 작동은 한다.</li>
+    </ul>
+  </div>
+  <div class="concerns">
+    <h4>우려</h4>
+    <ul>
+      <li>코드 레버리지도 미디어 레버리지도 없다. WeWork가 잠든 사이에 돈을 벌어다 주는 자산이 없다.</li>
+      <li>이건 "노동 × 자본" 모델이다 — 한계비용이 줄지 않고, 복리 효과가 없다. 100번째 지점의 비용이 1번째 지점과 동일하다.</li>
+      <li>Adam Neumann의 "특정 지식"이 뭔가? 부동산 운영? 커뮤니티 빌딩? 대체 가능한 스킬이다.</li>
+    </ul>
+  </div>
+  <div class="unique-take">"부의 원천은 특정 지식 × 레버리지다. WeWork에는 코드 레버리지(한 번 만들면 무한 복제)가 없고, 미디어 레버리지(콘텐츠가 돈을 벌어옴)도 없다. 남은 건 노동 레버리지와 자본 레버리지 — 가장 오래된, 가장 비효율적인 형태의 레버리지다. 이 모델로 테크 밸류에이션을 받는 건 시장의 착각이다."</div>
+</div>
+
+
+<!-- ═══════════ STAGE 3 ═══════════ -->
+<section class="stage-divider">
+  <div class="stage-number">🔥 Stage 3</div>
+  <h2 class="stage-title">투자위원회 토론</h2>
+  <p class="stage-subtitle">Marc Andreessen 🔵 vs Bill Gurley 🩷 vs Peter Thiel 🟣 — 5라운드</p>
+</section>
+
+<!-- ROUND 1 -->
+<div class="round">
+  <div class="round-header">Round 1 — 큰 그림과 기본 입장</div>
+  
+  <div class="debate-entry bull">
+    <div class="debate-role bull-role">🟢 THE BULL</div>
+    <div class="debate-speaker">Marc Andreessen 🔵</div>
+    <div class="debate-text">
+      좋아, 나부터 시작하겠다. <strong>모든 사람이 "이건 부동산이야"라고 말한다. 하지만 Airbnb도 처음엔 "에어 매트리스야"였다.</strong><br><br>
+      핵심을 보자. <strong>$3.3조 상업용 부동산 시장이 100년간 혁신이 없었다.</strong> 10-15년 장기 임대, 중개 수수료, 비유연적 구조. 이 시장에 Uber 같은 유연성을 가져오는 첫 번째 대규모 플레이어가 WeWork다.<br><br>
+      멤버 성장이 하키스틱이다. 15,000에서 40,000+으로 가속 중. <strong>Revenue $628M run rate in 4 years</strong> — 이건 SaaS 유니콘보다 빠른 성장이다. "소프트웨어가 부동산을 먹고 있다"는 건 비유가 아니라 현실이다.<br><br>
+      그리고 <strong>기업 고객(Enterprise)</strong>이 온다. 지금은 프리랜서 중심이지만, IBM, Samsung 같은 대기업이 유연한 오피스를 원하기 시작했다. 이게 게임 체인저다.
+    </div>
+  </div>
+
+  <div class="debate-entry bear">
+    <div class="debate-role bear-role">🔴 THE BEAR</div>
+    <div class="debate-speaker">Bill Gurley 🩷</div>
+    <div class="debate-text">
+      Marc, <strong>Airbnb 비교를 하지 마라.</strong> Airbnb는 자산을 소유하지 않는다. 유휴 자산(빈 방)을 연결하는 플랫폼이다. WeWork는 <strong>직접 빌딩을 장기 임대하고, 인테리어하고, 운영한다.</strong> 이건 플랫폼이 아니라 오퍼레이터다.<br><br>
+      숫자를 보자. <strong>WeWork의 비즈니스 모델은 본질적으로 duration mismatch</strong>다:<br><br>
+      <strong>부채 사이드:</strong> 10-15년 장기 임대 = 연간 수십억 달러의 고정 비용<br>
+      <strong>수익 사이드:</strong> 월 단위 멤버십 = 경기 침체 시 한 달 만에 해지 가능<br><br>
+      이건 은행의 만기 불일치(maturity mismatch)와 구조적으로 동일하다. <strong>다만 은행은 예금보험이 있고 WeWork는 없다.</strong> 불경기가 오면? 멤버 이탈 → 빈 공간 → 임대료는 계속 → 현금 소진 → 파산. 이건 시간문제다.
+    </div>
+  </div>
+
+  <div class="debate-entry wild">
+    <div class="debate-role wild-role">🃏 WILD CARD</div>
+    <div class="debate-speaker">Peter Thiel 🟣</div>
+    <div class="debate-text">
+      두 분 다 중요한 포인트를 짚었다. 하지만 <strong>가장 근본적인 질문을 안 하고 있다 — WeWork는 독점인가?</strong><br><br>
+      내 프레임워크를 적용해보자. 독점의 4가지 특성: <strong>1) 독자 기술 2) 네트워크 효과 3) 규모의 경제 4) 브랜딩.</strong><br><br>
+      WeWork는?<br>
+      1) 독자 기술: <strong>없다.</strong> 인테리어와 커뮤니티 매니지먼트.<br>
+      2) 네트워크 효과: <strong>없다.</strong> 멤버가 늘어도 내 데스크가 안 좋아진다.<br>
+      3) 규모의 경제: <strong>역으로 작동.</strong> 확장할수록 고정비(임대)가 비례 증가.<br>
+      4) 브랜딩: <strong>있긴 하다.</strong> 하지만 이것만으로는 10x 프리미엄 불가.<br><br>
+      <strong>결론: 4개 중 0.5개. 이건 독점이 아니라 "잘 나가는 부동산 회사"다.</strong> Regus의 P/E가 15인데, WeWork가 100을 받아야 할 이유는?
+    </div>
+  </div>
+</div>
+
+<!-- ROUND 2 -->
+<div class="round">
+  <div class="round-header">Round 2 — 구체적 수치와 사례로 공방</div>
+  
+  <div class="debate-entry bull">
+    <div class="debate-role bull-role">🟢 THE BULL</div>
+    <div class="debate-speaker">Marc Andreessen 🔵</div>
+    <div class="debate-text">
+      Peter, <strong>Regus 비교는 불공정하다.</strong> Regus는 "빈 사무실을 빌려주는" 회사이고, WeWork는 "일하는 경험을 재설계하는" 회사다. Amazon을 Walmart와 비교하면 같은 논리가 나온다 — 하지만 Amazon은 테크 밸류에이션을 받았다.<br><br>
+      <strong>왜? 데이터와 플랫폼 때문이다.</strong> WeWork도 갈 수 있다:<br>
+      — 40,000명의 멤버 데이터: 어떤 공간을 선호하고, 어떤 서비스를 쓰고, 어떤 시간에 활동하는가<br>
+      — 이 데이터 위에 SaaS 제품을 쌓을 수 있다: 공간 예약 소프트웨어, 멤버 네트워킹 앱, HR 솔루션<br>
+      — 기업 고객에게 "Space as a Service API"를 제공하면 그게 진짜 플랫폼이 된다<br><br>
+      Bill, 네 duration mismatch 우려는 맞다. <strong>하지만 기업 고객이 2-3년 계약을 하면 그 미스매치가 줄어든다.</strong> 지금은 프리랜서 중심이지만, 방향은 Enterprise다.
+    </div>
+  </div>
+
+  <div class="debate-entry bear">
+    <div class="debate-role bear-role">🔴 THE BEAR</div>
+    <div class="debate-speaker">Bill Gurley 🩷</div>
+    <div class="debate-text">
+      Marc, <strong>"갈 수 있다"와 "가고 있다"는 다르다.</strong> 이 덱에 소프트웨어 플랫폼 전략이 있나? 없다. "Space as a Service"라고 써놨지 "Software as a Service"라고 안 써놨다.<br><br>
+      <strong>구체적 숫자로 가보자.</strong> WeWork 한 지점의 유닛 이코노믹스를 역산하면:<br><br>
+      — NYC 평균 임대료: sqft당 $60-80/년<br>
+      — WeWork 한 지점: ~50,000 sqft → 연 임대 $3-4M<br>
+      — 인테리어: $5-10M (CapEx)<br>
+      — 멤버십 수익: 데스크당 월 $450-600, 200석 → 연 $1.1-1.4M (100% 가동 기준)<br><br>
+      <strong>100% 가동해도 임대료를 겨우 커버한다.</strong> 인테리어 CapEx, 인건비, 마케팅, 본사 비용은? <strong>지점당 손익분기에 3-4년이 걸리고, CapEx 회수에는 7-10년</strong>이 걸린다. 그 사이에 경기 침체가 오면?<br><br>
+      그리고 "Enterprise"? 기업이 WeWork에서 일하는 건 <strong>비용 절감이 아니라 유연성</strong> 때문이다. 불경기가 오면 그 유연성을 활용해서 — 맞다 — <strong>떠난다.</strong>
+    </div>
+  </div>
+
+  <div class="debate-entry wild">
+    <div class="debate-role wild-role">🃏 WILD CARD</div>
+    <div class="debate-speaker">Peter Thiel 🟣</div>
+    <div class="debate-text">
+      Bill의 숫자에 한 가지를 추가하겠다. <strong>WeWork가 Regus와 동일한 비즈니스를 하면서 10배 밸류에이션을 받는 이유가 뭔가?</strong><br><br>
+      답은 간단하다: <strong>Adam Neumann의 스토리텔링.</strong> "Space as a Service", "밀레니얼", "커뮤니티", "의식의 고양(elevate the world's consciousness)" — 이건 비즈니스 모델이 아니라 종교다.<br><br>
+      르네 지라르로 돌아가자. <strong>투자자들이 서로를 모방하고 있다.</strong> SoftBank가 투자하면 → 다른 VC도 투자하고 → 밸류에이션이 올라가고 → "봐, 밸류에이션이 올랐잖아"가 다음 라운드의 근거가 된다. <strong>이건 가치 창출이 아니라 모방적 거품(mimetic bubble)</strong>이다.<br><br>
+      Marc, 네 "Amazon vs Walmart" 비유가 맞으려면, <strong>WeWork가 실제로 데이터와 소프트웨어로 전환해야 한다.</strong> 지금 이 덱에는 그 증거가 없다. 있는 건 예쁜 인테리어 사진뿐이다.
+    </div>
+  </div>
+</div>
+
+<!-- ROUND 3 -->
+<div class="round">
+  <div class="round-header">Round 3 — 깊은 공방</div>
+  
+  <div class="debate-entry bull">
+    <div class="debate-role bull-role">🟢 THE BULL</div>
+    <div class="debate-speaker">Marc Andreessen 🔵</div>
+    <div class="debate-text">
+      좋아, Peter와 Bill의 공격을 정면으로 받겠다. <strong>두 분 말이 다 맞다. 지금의 WeWork는 독점이 아니고, 유닛 이코노믹스도 증명 안 됐다.</strong><br><br>
+      하지만 나는 <strong>"지금"이 아니라 "될 수 있는 것"</strong>을 보고 투자한다. Airbnb에 투자했을 때도 "에어 매트리스 렌탈"이었다. Netscape에 투자했을 때도 "브라우저를 왜 돈 내고 쓰냐"였다.<br><br>
+      WeWork가 <strong>테크 전환(tech transformation)을 실행한다면:</strong><br>
+      1) 공간 운영 → 공간 운영 OS (다른 빌딩 주인에게 라이선스)<br>
+      2) 멤버 데이터 → B2B SaaS 제품<br>
+      3) 기업 고객 → 장기 계약 기반 안정적 수익<br><br>
+      이 3가지가 실현되면 <strong>진짜 플랫폼 비즈니스</strong>가 된다. 문제는... 솔직히 이 덱에는 그 로드맵이 없다는 거다.<br><br>
+      <strong>내 입장을 수정한다: INVEST가 아니라 DIG DEEPER.</strong> Adam을 만나서 "테크 전환 계획"을 들어야 한다.
+    </div>
+  </div>
+
+  <div class="debate-entry bear">
+    <div class="debate-role bear-role">🔴 THE BEAR</div>
+    <div class="debate-speaker">Bill Gurley 🩷</div>
+    <div class="debate-text">
+      Marc, <strong>네가 입장을 수정한 건 현명하다.</strong> 왜냐하면 지금 이 덱이 보여주는 건 "테크 회사"가 아니라 <strong>"매우 빠르게 성장하는 부동산 운영 회사"</strong>이기 때문이다.<br><br>
+      하나 더 짚겠다. 이 성장 차트를 봐라 — <strong>Revenue와 EBITDA가 같이 올라가고 있다고 주장하지만</strong>, 나는 이 EBITDA 정의를 의심한다. WeWork가 나중에 발명한 <strong>"Community-Adjusted EBITDA"</strong>를 기억하나? 마케팅 비용을 빼고, 건물 오픈 비용을 빼고, 기본적으로 모든 비용을 빼서 만든 "이익".<br><br>
+      이건 <strong>Enron의 "Mark-to-Market 회계"</strong>와 같은 수법이다. 현실을 숫자로 왜곡하는 거다.<br><br>
+      마지막으로, Peter가 말한 <strong>"모방적 거품"</strong>에 완전히 동의한다. 2014년에 $5B이면, 다음 라운드는 $10B, 그 다음은 $20B... 이 밸류에이션 에스컬레이터에 올라타면 <strong>내릴 때가 문제</strong>다. 그리고 반드시 내릴 때가 온다.
+    </div>
+  </div>
+
+  <div class="debate-entry wild">
+    <div class="debate-role wild-role">🃏 WILD CARD</div>
+    <div class="debate-speaker">Peter Thiel 🟣</div>
+    <div class="debate-text">
+      Marc가 흥미로운 포인트를 던졌다 — <strong>"공간 운영 OS를 라이선스하면?"</strong> 이건 생각해볼 만하다. WeWork가 직접 빌딩을 임대하는 게 아니라, <strong>빌딩 주인에게 WeWork 브랜드와 운영 소프트웨어를 파는 프랜차이즈 모델</strong>이라면?<br><br>
+      그러면 자산 경량(asset-light) 모델이 되고, duration mismatch도 사라지고, 진짜 소프트웨어 마진이 가능해진다.<br><br>
+      하지만 — <strong>Adam Neumann은 이 방향으로 안 갈 것이다.</strong> 왜? 그는 "세상을 바꾸겠다"고 했지 "소프트웨어를 팔겠다"고 안 했으니까. 그의 ego가 "빌딩을 가득 채우는 것"에 있지 "다른 사람에게 라이선스하는 것"에 있지 않다.<br><br>
+      <strong>이게 핵심 리스크다 — 창업자의 ego가 비즈니스 모델 최적화를 방해한다.</strong> WeWork는 Adam Neumann이라는 사람의 세계관이 회사의 전략을 결정한다. 그리고 그 세계관은 "더 크게, 더 빨리, 더 많이"다. 유닛 이코노믹스나 해자 구축이 아니라.
+    </div>
+  </div>
+</div>
+
+<!-- ROUND 4 -->
+<div class="round">
+  <div class="round-header">Round 4 — 핵심 쟁점으로 수렴</div>
+  
+  <div class="debate-entry bull">
+    <div class="debate-role bull-role">🟢 THE BULL</div>
+    <div class="debate-speaker">Marc Andreessen 🔵</div>
+    <div class="debate-text">
+      Peter, 네 창업자 리스크 분석은 날카롭다. <strong>하지만 "창업자의 ego"가 항상 나쁜 건 아니다.</strong> Steve Jobs의 ego가 Apple을 만들었다. Elon Musk의 ego가 SpaceX를 만들었다.<br><br>
+      문제는 ego의 <strong>방향</strong>이다. Jobs의 ego는 "최고의 제품"을 향했다. <strong>Neumann의 ego는 어디를 향하고 있는가?</strong><br><br>
+      솔직히 말하면... <strong>"의식의 고양(elevate the world's consciousness)"이라는 미션을 가진 부동산 회사</strong>는 불안하다. 이건 비전이 아니라 과대망상에 가깝다.<br><br>
+      내 최종 입장: <strong>WeWork의 시장 기회는 진짜다. 독립 노동자 트렌드, 유연한 공간 수요 — 이건 구조적 변화다.</strong> 하지만 WeWork가 그 기회를 포착하는 최적의 vehicle인가? <strong>확신이 없다.</strong>
+    </div>
+  </div>
+
+  <div class="debate-entry bear">
+    <div class="debate-role bear-role">🔴 THE BEAR</div>
+    <div class="debate-speaker">Bill Gurley 🩷</div>
+    <div class="debate-text">
+      Marc가 핵심을 짚었다 — <strong>"시장 기회"와 "이 회사"는 별개</strong>라는 것.<br><br>
+      내가 Above the Crowd에서 반복적으로 경고해온 패턴이 여기에 있다: <strong>"좋은 시장에 있는 나쁜 비즈니스 모델에 과도한 밸류에이션."</strong><br><br>
+      역사를 봐라:<br>
+      — <strong>Pets.com</strong>: 반려동물 시장은 진짜였다. 비즈니스 모델이 쓰레기였다.<br>
+      — <strong>Webvan</strong>: 식료품 배달 시장은 진짜였다. 너무 빨리 확장해서 죽었다.<br><br>
+      WeWork도 같은 경로다. <strong>유연한 오피스 수요는 진짜다. 하지만 장기 임대-단기 재판매 모델은 경기 순환에 취약한 구조적 결함</strong>이 있다.<br><br>
+      $5B 밸류에이션? Regus/IWG가 WeWork보다 10배 많은 지점을 가지고 있고, <strong>실제 이익을 내면서 시가총액 $4B</strong>이다. WeWork가 Regus보다 더 가치 있다는 근거가 뭔가? <strong>브랜드? 맥주 무료 제공?</strong>
+    </div>
+  </div>
+
+  <div class="debate-entry wild">
+    <div class="debate-role wild-role">🃏 WILD CARD</div>
+    <div class="debate-speaker">Peter Thiel 🟣</div>
+    <div class="debate-text">
+      이 토론을 통해 핵심 쟁점이 명확해졌다. <strong>WeWork에는 두 가지 시나리오만 존재한다:</strong><br><br>
+      <strong>시나리오 A — "부동산 회사":</strong> Regus 멀티플 적용. Revenue $628M × 2-3x = <strong>$1.2-1.9B 밸류에이션.</strong> 현재 $5B는 3-4배 과대평가.<br><br>
+      <strong>시나리오 B — "테크 플랫폼":</strong> Marc가 말한 대로 공간 운영 OS + SaaS + 데이터. SaaS 멀티플 적용 시 $10B+ 가능. <strong>하지만 이건 현재가 아니라 "되면 좋겠는" 미래.</strong><br><br>
+      투자의 핵심 질문: <strong>시나리오 A에서 시나리오 B로 전환할 확률이 얼마인가?</strong><br><br>
+      내 답: <strong>10% 미만.</strong> Adam Neumann은 빌딩을 더 많이 열고 싶어하지, 소프트웨어를 만들고 싶어하지 않는다. 그리고 SoftBank의 무한 자본이 "빌딩 더 열기" 전략을 가능하게 만들면서 시나리오 B로의 전환 인센티브가 사라진다.<br><br>
+      <strong>PASS.</strong>
+    </div>
+  </div>
+</div>
+
+<!-- ROUND 5 -->
+<div class="round" style="border-bottom:none;">
+  <div class="round-header">Round 5 — 최종 입장 + 조건부 의견</div>
+  
+  <div class="debate-entry bull">
+    <div class="debate-role bull-role">🟢 THE BULL</div>
+    <div class="debate-speaker">Marc Andreessen 🔵</div>
+    <div class="debate-text">
+      5라운드 토론을 거치면서 <strong>내 확신이 약해졌다는 걸 솔직히 인정한다.</strong><br><br>
+      시작할 때는 "소프트웨어가 부동산을 먹고 있다"는 테제로 INVEST에 가까웠다. 하지만 Bill의 유닛 이코노믹스 분석과 Peter의 독점 테스트를 통과 못한 건 사실이다.<br><br>
+      <strong>내 최종 판정: DIG DEEPER.</strong> 조건:<br>
+      1) Adam Neumann과 만나서 <strong>"테크 전환 로드맵"</strong>을 구체적으로 들어야 한다<br>
+      2) <strong>성숙 지점(2년+)의 유닛 이코노믹스</strong>를 확인해야 한다<br>
+      3) <strong>기업 고객 파이프라인</strong>과 계약 기간을 봐야 한다<br><br>
+      하지만 솔직히? <strong>Peter의 "시나리오 B 전환 확률 10% 미만"이라는 판단이 맞을 가능성이 높다.</strong> 그리고 그 10%에 $5B 밸류에이션을 걸기엔 위험-보상 비율이 안 맞는다.
+    </div>
+  </div>
+
+  <div class="debate-entry bear">
+    <div class="debate-role bear-role">🔴 THE BEAR</div>
+    <div class="debate-speaker">Bill Gurley 🩷</div>
+    <div class="debate-text">
+      <strong>PASS. 확정.</strong><br><br>
+      이 토론에서 내 입장은 처음부터 끝까지 변하지 않았다. 이유를 정리하면:<br><br>
+      <strong>1) Duration mismatch = 구조적 시한폭탄.</strong> 경기 침체 시 멤버는 떠나고 임대료는 남는다.<br>
+      <strong>2) 유닛 이코노믹스 미증명.</strong> 지점당 CapEx 회수 기간 7-10년, 그 동안 현금 소진.<br>
+      <strong>3) 독점 불가능.</strong> 네트워크 효과 없음, 전환 비용 없음, 진입장벽 없음.<br>
+      <strong>4) 밸류에이션 거품.</strong> Regus 대비 3-4x 과대평가.<br><br>
+      마지막으로 하나만 — <strong>이 회사의 가장 큰 리스크는 비즈니스 모델이 아니라 무한한 자본 공급이다.</strong> SoftBank가 수십억 달러를 쏟으면 Adam Neumann은 절대 멈추지 않을 것이다. 그리고 <strong>빠르게 성장하는 나쁜 비즈니스 모델은, 느리게 성장하는 나쁜 비즈니스 모델보다 더 위험하다.</strong>
+    </div>
+  </div>
+
+  <div class="debate-entry wild">
+    <div class="debate-role wild-role">🃏 WILD CARD</div>
+    <div class="debate-speaker">Peter Thiel 🟣</div>
+    <div class="debate-text">
+      <strong>PASS.</strong><br><br>
+      최종 정리를 하겠다. 이 토론의 교훈은 명확하다:<br><br>
+      <strong>WeWork는 "좋은 아이디어"와 "좋은 투자"의 차이를 보여주는 교과서적 사례다.</strong><br><br>
+      유연한 오피스 공간? 좋은 아이디어다.<br>
+      밀레니얼 타겟? 좋은 마케팅이다.<br>
+      Space as a Service? 좋은 프레이밍이다.<br><br>
+      하지만 <strong>독점이 없고, 네트워크 효과가 없고, 스케일할수록 마진이 안 좋아지는 사업</strong>에 $5B를 걸 이유가 없다.<br><br>
+      Bill이 마지막에 한 말이 이 토론의 결론이다: <strong>"빠르게 성장하는 나쁜 비즈니스 모델은, 느리게 성장하는 나쁜 비즈니스 모델보다 더 위험하다."</strong> 이건 WeWork의 묘비명이 될 것이다.<br><br>
+      <strong>그리고 나는 틀리지 않을 것이다.</strong>
+    </div>
+  </div>
+</div>
+
+<!-- FINAL VERDICTS -->
+<h3 style="font-family:'Instrument Serif',serif; font-size:28px; margin:40px 0 20px;">🏛️ Final Verdicts</h3>
+
+<div class="final-verdict" style="border-left:3px solid var(--dig);">
+  <div class="fv-emoji">🔵</div>
+  <div>
+    <div class="fv-name">Marc Andreessen</div>
+    <div class="fv-verdict" style="color:var(--dig);">DIG DEEPER</div>
+    <div class="fv-reason">"시장 기회는 진짜지만 테크 전환 증거가 없다. Adam을 만나서 확인해야 하지만, 솔직히 기대가 낮다."</div>
+  </div>
+</div>
+
+<div class="final-verdict" style="border-left:3px solid var(--bear);">
+  <div class="fv-emoji">🩷</div>
+  <div>
+    <div class="fv-name">Bill Gurley</div>
+    <div class="fv-verdict" style="color:var(--bear);">PASS</div>
+    <div class="fv-reason">"Duration mismatch + 유닛 이코노믹스 미증명 + 독점 불가 + 밸류에이션 거품. 빠르게 성장하는 나쁜 비즈니스 모델이 가장 위험하다."</div>
+  </div>
+</div>
+
+<div class="final-verdict" style="border-left:3px solid var(--bear);">
+  <div class="fv-emoji">🟣</div>
+  <div>
+    <div class="fv-name">Peter Thiel</div>
+    <div class="fv-verdict" style="color:var(--bear);">PASS</div>
+    <div class="fv-reason">"독점 테스트 0.5/4 통과. 테크 전환 확률 10% 미만. 이건 모방적 거품이다."</div>
+  </div>
+</div>
+
+<div class="hindsight">
+  <h4>⚠️ Hindsight — 역사가 증명한 것</h4>
+  <p>
+    <strong>2019년 IPO 실패.</strong> $47B 밸류에이션 → IPO 직전 $10B → 철회. Adam Neumann 해임. 2023년 Chapter 11 파산 신청. 최종 가치: $0.<br><br>
+    Bill Gurley의 "duration mismatch" 경고, Peter Thiel의 "독점이 아니다" 판정, 그리고 "모방적 거품" 분석이 <strong>정확히 적중</strong>했다. WeWork는 VC 역사상 가장 큰 교훈 — <strong>"좋은 아이디어 ≠ 좋은 투자."</strong>
+  </p>
+</div>
+
+
+<!-- ═══════════ STAGE 4 ═══════════ -->
+<section class="stage-divider">
+  <div class="stage-number">📊 Stage 4</div>
+  <h2 class="stage-title">종합 리포트</h2>
+  <p class="stage-subtitle">핵심 인사이트, 창업자 질문, 액션 플랜</p>
+</section>
+
+<h3 style="font-family:'Instrument Serif',serif; font-size:24px; margin:32px 0 20px;">🔑 5 Key Insights</h3>
+
+<div class="insight-item">
+  <div class="insight-num">01</div>
+  <div class="insight-title">"Space as a Service"는 마케팅이지 해자가 아니다</div>
+  <div class="insight-desc">이름을 바꾼다고 비즈니스 모델이 바뀌지 않는다. WeWork의 본질은 장기 임대 → 단기 재판매의 부동산 차익 사업이다. "as a Service" 프레이밍이 테크 밸류에이션을 정당화하지 못한다. Regus가 같은 사업을 하면서 P/E 15를 받는 이유가 있다.</div>
+</div>
+
+<div class="insight-item">
+  <div class="insight-num">02</div>
+  <div class="insight-title">Duration Mismatch — 구조적 시한폭탄</div>
+  <div class="insight-desc">10-15년 장기 임대 부채 vs 월 단위 해지 가능한 멤버십 수익. 이 구조는 호황기에는 작동하지만, 경기 침체 시 양면의 가위(멤버 이탈 + 고정 임대료)에 끼인다. 은행의 만기 불일치와 동일하되, 예금보험도 최종대부자도 없다.</div>
+</div>
+
+<div class="insight-item">
+  <div class="insight-num">03</div>
+  <div class="insight-title">독점 테스트 0.5/4 — 네트워크 효과 부재</div>
+  <div class="insight-desc">Thiel의 독점 4대 요소(독자 기술, 네트워크 효과, 규모의 경제, 브랜딩) 중 0.5개만 충족. 특히 네트워크 효과가 전무하다. 멤버가 늘어도 기존 멤버의 가치가 안 올라가고, 오히려 공간이 붐빌 수 있다. 진입장벽도 없어 누구든 빌딩을 빌려 코워킹을 열 수 있다.</div>
+</div>
+
+<div class="insight-item">
+  <div class="insight-num">04</div>
+  <div class="insight-title">모방적 거품(Mimetic Bubble) — 투자자가 투자자를 모방한다</div>
+  <div class="insight-desc">SoftBank → 다른 VC → 밸류에이션 상승 → "봐, 오르잖아" → 더 많은 투자. 이건 가치 창출이 아니라 모방적 욕망의 순환이다. WeWork의 $5B → $47B 여정은 "시장이 비합리적으로 오래 유지될 수 있다"는 것을 보여주지만, 영원히는 못 간다.</div>
+</div>
+
+<div class="insight-item">
+  <div class="insight-num">05</div>
+  <div class="insight-title">"빠르게 성장하는 나쁜 모델"이 가장 위험하다</div>
+  <div class="insight-desc">WeWork의 성장 차트는 인상적이다. 하지만 확장할수록 고정비가 비례 증가하고, CapEx가 폭발하며, 현금이 사라진다. 느린 성장은 일찍 문제를 드러내지만, 빠른 성장은 문제를 숨긴다 — 그리고 터질 때 더 크게 터진다.</div>
+</div>
+
+<h3 style="font-family:'Instrument Serif',serif; font-size:24px; margin:40px 0 20px;">❓ Questions for the Founder</h3>
+
+<div class="q-section">
+  <div class="q-section-header">
+    <span class="emoji">🔵</span>
+    <span class="name">Marc Andreessen의 질문 — "테크 전환 가능성"</span>
+  </div>
+  <ol class="q-list">
+    <li>WeWork를 "기술 회사"라고 하는데, 현재 엔지니어링 팀은 몇 명이고 R&D 비용은 매출의 몇 %인가?</li>
+    <li>빌딩 주인에게 WeWork 운영 소프트웨어를 라이선스하는 asset-light 모델을 고려한 적 있는가?</li>
+    <li>기업(Enterprise) 고객의 비중은? 평균 계약 기간은? 2-3년 장기 계약 비율은?</li>
+    <li>멤버 데이터를 활용한 구체적 SaaS 제품 계획이 있는가? 아니면 "데이터 활용"은 아직 비전 수준인가?</li>
+    <li>5년 후 WeWork의 Revenue 중 "소프트웨어/서비스" 비중은 얼마라고 예상하는가?</li>
+  </ol>
+</div>
+
+<div class="q-section">
+  <div class="q-section-header">
+    <span class="emoji">🩷</span>
+    <span class="name">Bill Gurley의 질문 — "유닛 이코노믹스 검증"</span>
+  </div>
+  <ol class="q-list">
+    <li>가장 오래된 지점(NYC 1호점)의 연간 P&L을 보여줄 수 있는가? CapEx 포함한 진짜 ROI는?</li>
+    <li>새 지점 하나를 여는 데 총 비용(임대 보증금 + 인테리어 + 런칭)은 얼마인가? 손익분기까지 몇 개월인가?</li>
+    <li>멤버 이탈률(monthly churn)은? 평균 멤버 잔존 기간은? LTV는?</li>
+    <li>이 Financials 차트의 "EBITDA" 정의가 뭔가? CapEx, 신규 지점 비용, stock-based compensation은 포함되어 있는가?</li>
+    <li>경기 침체 시나리오에서 가동률이 60%로 떨어지면, 현금 소진까지 몇 개월 버틸 수 있는가?</li>
+  </ol>
+</div>
+
+<div class="q-section">
+  <div class="q-section-header">
+    <span class="emoji">🟣</span>
+    <span class="name">Peter Thiel의 질문 — "독점과 비전의 진실"</span>
+  </div>
+  <ol class="q-list">
+    <li>WeWork가 사라지면 멤버는 어디로 가는가? 왜 WeWork만 쓸 수 있는 이유가 있는가?</li>
+    <li>"Elevate the world's consciousness"가 미션이라고 했는데, 구체적으로 이 미션이 사업적 의사결정을 어떻게 바꾸는가?</li>
+    <li>Regus가 내일 WeWork와 동일한 디자인, 동일한 커뮤니티 프로그램을 제공하면 어떻게 대응하는가?</li>
+    <li>WeLive, WeGrow 등 확장은 "포커스"인가 "산만함"인가? 핵심 사업이 독점에 도달하기 전에 왜 확장하는가?</li>
+    <li>Adam, 솔직하게 — 당신이 만들고 있는 건 "기술 회사"인가 "부동산 회사"인가?</li>
+  </ol>
+</div>
+
+<h3 style="font-family:'Instrument Serif',serif; font-size:24px; margin:40px 0 20px;">🎯 Action Plans — "IF I WERE YOU..."</h3>
+
+<div class="action-plan">
+  <h4>🔵 Marc Andreessen — "테크 전환을 진짜로 해라"</h4>
+  <div class="action-step">
+    <div class="step-num">1</div>
+    <div class="step-text"><strong>엔지니어링 팀을 3배로 늘려라.</strong> 현재 WeWork의 핵심 인력은 부동산/디자인/운영이다. CTO를 영입하고 공간 운영 소프트웨어를 만들어라. 이게 없으면 영원히 "부동산 회사"다.</div>
+  </div>
+  <div class="action-step">
+    <div class="step-num">2</div>
+    <div class="step-text"><strong>Asset-light 모델을 파일럿해라.</strong> 1-2개 도시에서 빌딩 주인에게 WeWork 브랜드+운영 SW를 라이선스하는 모델을 테스트해라. 성공하면 게임이 바뀐다.</div>
+  </div>
+  <div class="action-step">
+    <div class="step-num">3</div>
+    <div class="step-text"><strong>Enterprise 영업팀을 구축해라.</strong> 프리랜서 월 멤버십은 churn이 높다. 기업 고객 2-3년 계약이 duration mismatch를 해소하는 유일한 길이다.</div>
+  </div>
+  <div class="action-step">
+    <div class="step-num">4</div>
+    <div class="step-text"><strong>WeLive, WeGrow 등 사이드 프로젝트를 중단해라.</strong> 핵심 사업(오피스)이 독점에 도달하기 전에 확장하는 건 자살 행위다.</div>
+  </div>
+</div>
+
+<div class="action-plan">
+  <h4>🩷 Bill Gurley — "숫자를 증명하고 속도를 줄여라"</h4>
+  <div class="action-step">
+    <div class="step-num">1</div>
+    <div class="step-text"><strong>성숙 지점의 유닛 이코노믹스를 투명하게 공개해라.</strong> 2년+ 지점의 가동률, 마진, CapEx 회수율. 이 숫자가 좋으면 투자자를 설득할 수 있다. 나쁘면... 알아야 한다.</div>
+  </div>
+  <div class="action-step">
+    <div class="step-num">2</div>
+    <div class="step-text"><strong>확장 속도를 줄이고 마진에 집중해라.</strong> 20개 지점이 다 이익을 내는 게 100개 지점이 다 적자인 것보다 낫다. "Growth at all costs"는 죽음의 길이다.</div>
+  </div>
+  <div class="action-step">
+    <div class="step-num">3</div>
+    <div class="step-text"><strong>경기 침체 스트레스 테스트를 해라.</strong> 가동률 60% 시나리오에서의 현금 소진 모델을 만들고, 그에 맞는 현금 보유량을 확보해라.</div>
+  </div>
+  <div class="action-step">
+    <div class="step-num">4</div>
+    <div class="step-text"><strong>"Community-Adjusted" 같은 창작 지표를 쓰지 마라.</strong> GAAP 기준 재무제표로 투자자와 소통해라. 신뢰가 장기적 가치다.</div>
+  </div>
+</div>
+
+<div class="action-plan">
+  <h4>🟣 Peter Thiel — "독점을 만들거나 포기해라"</h4>
+  <div class="action-step">
+    <div class="step-num">1</div>
+    <div class="step-text"><strong>WeWork만이 제공할 수 있는 "10x" 가치를 찾아라.</strong> 예쁜 인테리어는 2x다. 10x는 기술에서 나온다. AI 기반 공간 최적화, 멤버 매칭 알고리즘, 자동화된 빌딩 운영 — 이런 게 10x 독점 기술이다.</div>
+  </div>
+  <div class="action-step">
+    <div class="step-num">2</div>
+    <div class="step-text"><strong>전환 비용을 만들어라.</strong> 지금은 멤버가 한 달 만에 떠날 수 있다. 멤버의 비즈니스 인프라(결제, CRM, 커뮤니케이션)를 WeWork에 내장하면 전환 비용이 생긴다.</div>
+  </div>
+  <div class="action-step">
+    <div class="step-num">3</div>
+    <div class="step-text"><strong>"경쟁은 패배자의 것"이라는 원칙을 기억해라.</strong> Regus와 가격 경쟁, 디자인 경쟁을 하지 마라. 완전히 다른 카테고리를 만들어라. 현재 WeWork는 "더 예쁜 Regus"일 뿐이다.</div>
+  </div>
+  <div class="action-step">
+    <div class="step-num">4</div>
+    <div class="step-text"><strong>Ego를 통제해라.</strong> "세상의 의식을 고양한다"는 미션이 사업적 의사결정을 흐리고 있다. 미션은 크되, 실행은 냉정해야 한다. 그렇지 않으면 비전은 "부동산의 Theranos"가 된다.</div>
+  </div>
+</div>
+
+<h3 style="font-family:'Instrument Serif',serif; font-size:24px; margin:40px 0 20px;">📝 Executive Summary</h3>
+
+<div class="exec-summary">
+  <h3>투자위원회 최종 요약</h3>
+  <p>
+    WeWork(2014)는 <strong>진짜 시장 기회(독립 노동자 트렌드, $3.3T 상업용 부동산)를 포착했지만, 근본적으로 잘못된 비즈니스 모델(장기 임대-단기 재판매)과 부재한 해자(네트워크 효과 0, 전환 비용 0)를 가진 회사</strong>다. 10인 VC 중 5명이 PASS, 4명이 DIG DEEPER, 1명도 INVEST하지 않았다. 핵심 리스크는 duration mismatch(경기 침체 시 구조적 붕괴), 독점 불가능성, 그리고 창업자의 ego가 비즈니스 모델 최적화를 방해하는 것. <strong>Thiel의 "모방적 거품" 분석과 Gurley의 "빠르게 성장하는 나쁜 모델이 가장 위험하다"는 경고는 2019년 IPO 실패와 2023년 파산으로 정확히 적중</strong>했다. WeWork는 VC 역사상 가장 값비싼 교훈: <strong>"좋은 아이디어 ≠ 좋은 투자 ≠ 좋은 비즈니스 모델."</strong>
+  </p>
+</div>
+
+</div>
+
+<div class="footer">
+  <div class="container">
+    <p>VC Investment Committee Simulation by Venture Capitalist AI</p>
+    <p style="margin-top:8px; opacity:0.4;">15 VC Personas × WeWork Pitch Deck (2014) — A Cautionary Tale</p>
+  </div>
+</div>
+
+</body>
+</html>

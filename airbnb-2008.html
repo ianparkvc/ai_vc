@@ -1,0 +1,1629 @@
+<!DOCTYPE html>
+<!-- saved from url=(0044)file:///Volumes/SSD/Downloads/vc-report.html -->
+<html lang="ko"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VC Investment Committee — AirBed&amp;Breakfast (2008)</title>
+<link href="./VC Investment Committee — AirBed&amp;Breakfast (2008)_files/css2" rel="stylesheet">
+<style>
+:root {
+  --bg-primary: #000000;
+  --bg-secondary: #0a0a0a;
+  --bg-card: #111111;
+  --bg-card-hover: #181818;
+  --border: #222222;
+  --text-primary: #e8e6e3;
+  --text-secondary: #9a9aad;
+  --text-muted: #5a5a70;
+  --accent-green: #00e676;
+  --accent-green-dim: #00e67620;
+  --accent-red: #ff5252;
+  --accent-red-dim: #ff525220;
+  --accent-yellow: #ffd740;
+  --accent-yellow-dim: #ffd74020;
+  --accent-blue: #448aff;
+  --accent-blue-dim: #448aff15;
+  --accent-purple: #b388ff;
+  --accent-gold: #d4a574;
+  --accent-cyan: #18ffff;
+  --gradient-hero: linear-gradient(135deg, #000000 0%, #0f0a1a 50%, #0a0f1a 100%);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--accent-blue);
+  color: white;
+}
+
+/* ===== NOISE TEXTURE OVERLAY ===== */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #000000; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+/* ===== NAVIGATION ===== */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  background: rgba(0,0,0,0.9);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 2rem;
+}
+
+.nav-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+}
+
+.nav-logo {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent-gold);
+}
+
+.nav-links {
+  display: flex;
+  gap: 0.25rem;
+  list-style: none;
+}
+
+.nav-links a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 0.4rem 0.75rem;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.nav-links a:hover {
+  color: var(--text-primary);
+  background: var(--bg-card);
+}
+
+/* ===== HERO ===== */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--gradient-hero);
+  position: relative;
+  overflow: hidden;
+  padding: 6rem 2rem 4rem;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 800px; height: 800px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(68,138,255,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-content {
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  max-width: 800px;
+  animation: fadeUp 1s ease-out;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hero-badge {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent-gold);
+  border: 1px solid var(--accent-gold);
+  padding: 0.4rem 1.2rem;
+  border-radius: 100px;
+  margin-bottom: 2.5rem;
+  opacity: 0.9;
+}
+
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 900;
+  line-height: 1.1;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, #e8e6e3, #d4a574);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero h1 span {
+  display: block;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 0.5em;
+  background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-top: 0.3em;
+}
+
+.hero-meta {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  margin-top: 2rem;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.hero-verdict-bar {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 3rem;
+  flex-wrap: wrap;
+}
+
+.verdict-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.verdict-chip.invest { background: var(--accent-green-dim); color: var(--accent-green); border: 1px solid rgba(0,230,118,0.2); }
+.verdict-chip.pass { background: var(--accent-red-dim); color: var(--accent-red); border: 1px solid rgba(255,82,82,0.2); }
+.verdict-chip.dig { background: var(--accent-yellow-dim); color: var(--accent-yellow); border: 1px solid rgba(255,215,64,0.2); }
+
+/* ===== LAYOUT ===== */
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* ===== STAGE HEADER ===== */
+.stage-section {
+  padding: 5rem 0;
+  border-top: 1px solid var(--border);
+}
+
+.stage-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent-blue);
+  margin-bottom: 0.75rem;
+}
+
+.stage-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 900;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+}
+
+.stage-subtitle {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  margin-bottom: 3rem;
+  max-width: 600px;
+}
+
+/* ===== DEAL MEMO CARDS ===== */
+.memo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.memo-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: all 0.3s;
+}
+
+.memo-card:hover {
+  border-color: var(--text-muted);
+  transform: translateY(-2px);
+}
+
+.memo-card-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 0.75rem;
+}
+
+.memo-card h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.memo-card p {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.memo-card.full-width {
+  grid-column: 1 / -1;
+}
+
+/* ===== MARKET SIZE VISUAL ===== */
+.market-visual {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 2rem;
+  padding: 2.5rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  margin-bottom: 2rem;
+}
+
+.market-bubble {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.market-bubble .circle {
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  color: white;
+  background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+}
+
+.market-bubble:nth-child(1) .circle { width: 140px; height: 140px; font-size: 1.2rem; }
+.market-bubble:nth-child(2) .circle { width: 100px; height: 100px; font-size: 0.95rem; }
+.market-bubble:nth-child(3) .circle { width: 70px; height: 70px; font-size: 0.75rem; }
+
+.market-bubble .label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+/* ===== TEAM ===== */
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.team-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.25rem;
+  text-align: center;
+}
+
+.team-avatar {
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+  margin: 0 auto 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+}
+
+.team-name { font-weight: 700; font-size: 0.9rem; }
+.team-role { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem; }
+
+/* ===== DEBATE TRIGGERS ===== */
+.trigger-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.trigger-item {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  padding: 1rem 1.25rem;
+  background: var(--bg-card);
+  border-left: 3px solid var(--accent-red);
+  border-radius: 0 8px 8px 0;
+}
+
+.trigger-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--accent-red);
+  min-width: 20px;
+}
+
+.trigger-text {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+}
+
+.trigger-text strong {
+  color: var(--text-primary);
+}
+
+/* ===== PANEL SELECTION ===== */
+.panel-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  margin-top: 2.5rem;
+}
+
+@media (max-width: 768px) {
+  .panel-grid { grid-template-columns: 1fr; }
+  .nav-links { display: none; }
+}
+
+.panel-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.panel-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+}
+
+.panel-card.bull::before { background: var(--accent-green); }
+.panel-card.bear::before { background: var(--accent-red); }
+.panel-card.wild::before { background: var(--accent-purple); }
+
+.panel-role {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.panel-card.bull .panel-role { color: var(--accent-green); }
+.panel-card.bear .panel-role { color: var(--accent-red); }
+.panel-card.wild .panel-role { color: var(--accent-purple); }
+
+.panel-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+.panel-reason {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* ===== VC EVALUATIONS ===== */
+.vc-eval {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 2rem;
+  margin-bottom: 1.25rem;
+  transition: all 0.3s;
+}
+
+.vc-eval:hover {
+  border-color: var(--text-muted);
+}
+
+.vc-eval-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.vc-eval-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.vc-eval-name .emoji { margin-right: 0.5rem; }
+
+.vc-eval-tag {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.vc-verdict-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.8rem;
+  border-radius: 100px;
+}
+
+.vc-verdict-badge.invest { background: var(--accent-green-dim); color: var(--accent-green); }
+.vc-verdict-badge.pass { background: var(--accent-red-dim); color: var(--accent-red); }
+.vc-verdict-badge.dig { background: var(--accent-yellow-dim); color: var(--accent-yellow); }
+
+.vc-eval-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+@media (max-width: 640px) {
+  .vc-eval-body { grid-template-columns: 1fr; }
+}
+
+.vc-eval-col h4 {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.vc-eval-col.strengths h4 { color: var(--accent-green); }
+.vc-eval-col.concerns h4 { color: var(--accent-red); }
+
+.vc-eval-col li {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.35rem;
+  margin-left: 1rem;
+  line-height: 1.5;
+}
+
+.vc-perspective {
+  padding: 1rem 1.25rem;
+  background: var(--accent-blue-dim);
+  border-left: 2px solid var(--accent-blue);
+  border-radius: 0 8px 8px 0;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  font-style: italic;
+}
+
+/* ===== DEBATE ROUNDS ===== */
+.round {
+  margin-bottom: 3rem;
+}
+
+.round-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.round-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--border);
+  line-height: 1;
+}
+
+.round-title {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.debate-entry {
+  padding: 1.75rem;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  position: relative;
+  border: 1px solid var(--border);
+}
+
+.debate-entry.bull {
+  background: linear-gradient(135deg, rgba(0,230,118,0.03), transparent);
+  border-left: 3px solid var(--accent-green);
+}
+
+.debate-entry.bear {
+  background: linear-gradient(135deg, rgba(255,82,82,0.03), transparent);
+  border-left: 3px solid var(--accent-red);
+}
+
+.debate-entry.wild {
+  background: linear-gradient(135deg, rgba(179,136,255,0.03), transparent);
+  border-left: 3px solid var(--accent-purple);
+}
+
+.debate-speaker {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.debate-role-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+}
+
+.bull .debate-role-tag { background: var(--accent-green-dim); color: var(--accent-green); }
+.bear .debate-role-tag { background: var(--accent-red-dim); color: var(--accent-red); }
+.wild .debate-role-tag { background: rgba(179,136,255,0.15); color: var(--accent-purple); }
+
+.debate-speaker-name {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.debate-text {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.75;
+}
+
+.debate-text strong { color: var(--text-primary); font-weight: 600; }
+
+/* ===== FINAL VERDICTS ===== */
+.verdicts-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  margin-top: 2rem;
+}
+
+@media (max-width: 768px) {
+  .verdicts-grid { grid-template-columns: 1fr; }
+}
+
+.verdict-card {
+  padding: 2rem;
+  border-radius: 12px;
+  text-align: center;
+  border: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+
+.verdict-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+}
+
+.verdict-card.invest-v::before { background: var(--accent-green); }
+.verdict-card.dig-v::before { background: var(--accent-yellow); }
+
+.verdict-card .v-role {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+}
+
+.verdict-card .v-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.verdict-card .v-decision {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+.verdict-card.invest-v .v-decision { color: var(--accent-green); }
+.verdict-card.dig-v .v-decision { color: var(--accent-yellow); }
+
+.verdict-card .v-summary {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* ===== KEY INSIGHTS ===== */
+.insight {
+  padding: 1.5rem 1.75rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  display: flex;
+  gap: 1.25rem;
+  align-items: flex-start;
+}
+
+.insight-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--accent-gold);
+  line-height: 1;
+  min-width: 36px;
+}
+
+.insight-content h4 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+}
+
+.insight-content p {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* ===== QUESTIONS ===== */
+.questions-section {
+  margin-bottom: 2.5rem;
+}
+
+.questions-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.questions-header .q-emoji { font-size: 1.3rem; }
+
+.questions-header h4 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.question-item {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid rgba(42,42,58,0.5);
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  display: flex;
+  gap: 0.75rem;
+}
+
+.question-item:last-child { border-bottom: none; }
+
+.q-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  min-width: 20px;
+  padding-top: 2px;
+}
+
+/* ===== ACTION PLANS ===== */
+.action-plan {
+  margin-bottom: 2.5rem;
+}
+
+.action-plan-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.action-plan-header h4 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.action-step {
+  display: flex;
+  gap: 1.25rem;
+  padding: 1.25rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  margin-bottom: 0.75rem;
+}
+
+.step-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--accent-cyan);
+  background: rgba(24,255,255,0.1);
+  width: 28px; height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+.step-content h5 {
+  font-size: 0.88rem;
+  font-weight: 700;
+  margin-bottom: 0.35rem;
+}
+
+.step-content p {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* ===== EXECUTIVE SUMMARY ===== */
+.exec-summary {
+  background: linear-gradient(135deg, rgba(68,138,255,0.05), rgba(179,136,255,0.05));
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 2.5rem;
+  margin: 2rem 0;
+  position: relative;
+}
+
+.exec-summary::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple), var(--accent-gold));
+  border-radius: 16px 16px 0 0;
+}
+
+.exec-summary p {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--text-secondary);
+}
+
+.exec-summary strong { color: var(--text-primary); }
+
+/* ===== FOOTER ===== */
+.footer {
+  text-align: center;
+  padding: 3rem 2rem;
+  border-top: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 0.75rem;
+}
+
+.footer .epilogue {
+  max-width: 700px;
+  margin: 0 auto 1.5rem;
+  font-size: 0.88rem;
+  font-style: italic;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  padding: 1.5rem;
+  background: var(--bg-card);
+  border-radius: 12px;
+  border: 1px solid var(--border);
+}
+
+/* ===== UTILITY ===== */
+.divider {
+  height: 1px;
+  background: var(--border);
+  margin: 2rem 0;
+}
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s, transform 0.6s;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-logo">VC IC Simulator</div>
+    <ul class="nav-links">
+      <li><a href="file:///Volumes/SSD/Downloads/vc-report.html#stage1">딜 메모</a></li>
+      <li><a href="file:///Volumes/SSD/Downloads/vc-report.html#stage2">VC 평가</a></li>
+      <li><a href="file:///Volumes/SSD/Downloads/vc-report.html#stage3">IC 토론</a></li>
+      <li><a href="file:///Volumes/SSD/Downloads/vc-report.html#stage4">종합 리포트</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">Investment Committee Simulation</div>
+    <h1>AirBed&amp;Breakfast <span>Original Pitch Deck Analysis — 2008</span></h1>
+    <div class="hero-verdict-bar">
+      <div class="verdict-chip invest">🟢 INVEST × 2</div>
+      <div class="verdict-chip dig">🟡 DIG DEEPER × 1</div>
+    </div>
+    <div class="hero-meta">15 VC Personas · 4-Stage Analysis · 5-Round Debate</div>
+  </div>
+</section>
+
+<!-- STAGE 1: DEAL MEMO -->
+<section id="stage1" class="stage-section">
+<div class="container">
+  <div class="stage-label">📋 Stage 1</div>
+  <div class="stage-title">딜 메모 추출</div>
+  <div class="stage-subtitle">피치덱에서 구조화된 투자 정보를 추출합니다.</div>
+
+  <!-- Deal Structure -->
+  <div class="memo-grid">
+    <div class="memo-card fade-in">
+      <div class="memo-card-label">Problem</div>
+      <p>온라인 여행 예약 시 가격이 비싸고, 호텔은 도시/문화와 단절된 경험 제공. 현지인 집에 머물 수 있는 쉬운 방법 부재.</p>
+    </div>
+    <div class="memo-card fade-in">
+      <div class="memo-card-label">Solution</div>
+      <p>사용자가 자신의 공간을 여행자에게 임대하는 웹 플랫폼. 여행자는 절약, 호스트는 수입, 양쪽 모두 문화 공유.</p>
+    </div>
+    <div class="memo-card fade-in">
+      <div class="memo-card-label">Business Model</div>
+      <p>각 거래당 <strong>10% 커미션</strong>. 평균 숙박 $80/night × 3박 = $240, 평균 수수료 <strong>$25</strong>.</p>
+    </div>
+    <div class="memo-card fade-in">
+      <div class="memo-card-label">Stage</div>
+      <p><strong>Pre-Seed / Angel Round</strong><br>$500K → 12개월 내 80K 거래 → $2M 매출 목표</p>
+    </div>
+  </div>
+
+  <!-- Market Size -->
+  <div class="memo-card-label" style="margin-bottom: 0.75rem; margin-top: 2rem;">Market Size</div>
+  <div class="market-visual">
+    <div class="market-bubble">
+      <div class="circle" style="width:140px;height:140px;font-size:1.1rem;">2B+</div>
+      <div class="label">TAM<br>Trips Worldwide</div>
+    </div>
+    <div class="market-bubble">
+      <div class="circle" style="width:100px;height:100px;font-size:0.95rem;">560M</div>
+      <div class="label">SAM<br>Budget &amp; Online</div>
+    </div>
+    <div class="market-bubble">
+      <div class="circle" style="width:70px;height:70px;font-size:0.75rem;">84M</div>
+      <div class="label">SOM<br>15% Share</div>
+    </div>
+  </div>
+
+  <!-- Traction -->
+  <div class="memo-grid" style="margin-top: 1.5rem;">
+    <div class="memo-card fade-in">
+      <div class="memo-card-label">Traction / Validation</div>
+      <p>자체 하드 메트릭 미공개. DNC 시점 런칭, 언론 노출 확보 (Webware, Mashable, Springwise). Market validation으로 Couchsurfing <strong>660K 유저</strong>, Craigslist <strong>50K 임시 숙소 리스팅/주</strong> 제시.</p>
+    </div>
+    <div class="memo-card fade-in">
+      <div class="memo-card-label">Long-term Projection</div>
+      <p>84M trips × $25 avg fee = <strong>$2.1B Revenue</strong> (2011년 전망). 현재 트랙션 대비 극도로 공격적인 가정.</p>
+    </div>
+  </div>
+
+  <!-- Team -->
+  <div class="memo-card-label" style="margin-top: 2rem; margin-bottom: 0.75rem;">Team</div>
+  <div class="team-grid">
+    <div class="team-card">
+      <div class="team-avatar">🎨</div>
+      <div class="team-name">Joe Gebbia</div>
+      <div class="team-role">UI &amp; PR · RISD · Dual BFA</div>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar">💼</div>
+      <div class="team-name">Brian Chesky</div>
+      <div class="team-role">BizDev &amp; Brand · RISD</div>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar">💻</div>
+      <div class="team-name">Nathan Blecharcyk</div>
+      <div class="team-role">Developer · Harvard CS</div>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar">🧭</div>
+      <div class="team-name">Michael Seibel</div>
+      <div class="team-role">Advisor · Justin.tv CEO</div>
+    </div>
+  </div>
+
+  <!-- Competition -->
+  <div class="memo-card full-width fade-in" style="margin-top: 1rem;">
+    <div class="memo-card-label">Competition</div>
+    <p><strong>Offline + 저가:</strong> CouchSurfing (무료/거래 없음), Craigslist (비구조적), BedandBreakfast.com<br>
+    <strong>Online + 고가:</strong> Hotels.com, Orbitz, Rentahome, VRBO<br>
+    <strong>AB&amp;B 포지셔닝:</strong> Affordable + Online Transaction — 유일한 포지션. 거래 기반 최초, 호스트 수익 인센티브, 프로필 시스템, 디자인/브랜드 차별화.</p>
+  </div>
+
+  <!-- Debate Triggers -->
+  <div class="memo-card-label" style="margin-top: 2rem; margin-bottom: 0.75rem;">🚨 Debate Triggers</div>
+  <div class="trigger-list">
+    <div class="trigger-item fade-in"><div class="trigger-num">01</div><div class="trigger-text"><strong>Trust &amp; Safety 완전 부재</strong> — 낯선 사람 집에 머무는 컨셉인데, 보험/신원확인/분쟁해결 언급 제로</div></div>
+    <div class="trigger-item fade-in"><div class="trigger-num">02</div><div class="trigger-text"><strong>트랙션 거의 제로</strong> — 실제 거래 건수, MAU, 매출 등 하드 메트릭 없음</div></div>
+    <div class="trigger-item fade-in"><div class="trigger-num">03</div><div class="trigger-text"><strong>$2.1B 전망의 비현실성</strong> — 84M trips의 15% 마켓셰어 가정이 지나치게 공격적</div></div>
+    <div class="trigger-item fade-in"><div class="trigger-num">04</div><div class="trigger-text"><strong>디자이너 팀의 실행력</strong> — 기술 역량은 Nathan 1인 의존, 마켓플레이스 스케일링 경험 부재</div></div>
+    <div class="trigger-item fade-in"><div class="trigger-num">05</div><div class="trigger-text"><strong>규제 리스크 제로 언급</strong> — 단기 임대 규제, 세금, 보험, 조닝 법률 무시</div></div>
+    <div class="trigger-item fade-in"><div class="trigger-num">06</div><div class="trigger-text"><strong>유닛 이코노믹스 부재</strong> — CAC, LTV, 리텐션, 코호트 데이터 전무</div></div>
+    <div class="trigger-item fade-in"><div class="trigger-num">07</div><div class="trigger-text"><strong>닭과 달걀 문제</strong> — 양면 마켓플레이스의 cold start 전략이 "이벤트 타겟팅"에 그침</div></div>
+  </div>
+
+  <!-- Panel Selection -->
+  <div class="stage-label" style="margin-top: 3.5rem;">토론 패널 선정</div>
+  <div class="panel-grid">
+    <div class="panel-card bull fade-in">
+      <div class="panel-role">🟢 THE BULL</div>
+      <div class="panel-name">Marc Andreessen 🔵</div>
+      <div class="panel-reason">소프트웨어가 $60B+ 호텔 산업을 먹어치우는 이야기. 거대 산업 디스럽션, 플랫폼, 네트워크 효과 — 핵심 테제에 정확히 부합.</div>
+    </div>
+    <div class="panel-card bear fade-in">
+      <div class="panel-role">🔴 THE BEAR</div>
+      <div class="panel-name">Bill Gurley 🩷</div>
+      <div class="panel-reason">마켓플레이스의 대가. 유닛 이코노믹스 부재, $2.1B 전망의 비현실성, 양면 마켓의 진짜 어려움을 가장 날카롭게 찌를 수 있음.</div>
+    </div>
+    <div class="panel-card wild fade-in">
+      <div class="panel-role">🃏 WILD CARD</div>
+      <div class="panel-name">Clayton Christensen 📘</div>
+      <div class="panel-reason">AB&amp;B가 진짜 "파괴적 혁신"인가? Low-end disruption의 교과서적 패턴에 맞는지 프레임워크로 분석할 유일한 사람.</div>
+    </div>
+  </div>
+
+</div>
+</section>
+
+<!-- STAGE 2: 10 VC EVALUATIONS -->
+<section id="stage2" class="stage-section">
+<div class="container">
+  <div class="stage-label">🧠 Stage 2</div>
+  <div class="stage-title">10인 VC 평가</div>
+  <div class="stage-subtitle">10명의 VC Guru가 각자의 관점에서 독립적으로 평가합니다.</div>
+
+  <!-- 1. Peter Thiel -->
+  <div class="vc-eval fade-in">
+    <div class="vc-eval-header">
+      <div><div class="vc-eval-name"><span class="emoji">🟣</span> Peter Thiel</div><div class="vc-eval-tag">Zero to One 개척자</div></div>
+      <div class="vc-verdict-badge dig">🟡 추가 검토</div>
+    </div>
+    <div class="vc-eval-body">
+      <div class="vc-eval-col strengths"><h4>강점</h4><ul>
+        <li>진정한 0→1 — "남의 집에서 자는 것"을 시장으로 만듦. 아무도 작동한다고 생각 않음 = 좋은 비밀(secret)</li>
+        <li>CouchSurfing(무료/비비즈니스)과 호텔(기존) 사이에 새로운 카테고리 창출 가능성</li>
+      </ul></div>
+      <div class="vc-eval-col concerns"><h4>우려</h4><ul>
+        <li>"여행 시장의 15%"는 경쟁 전제 사고. 독점 가능한 작은 시장 지배가 먼저</li>
+        <li>독점 메커니즘 불명확. 멀티호밍(Craigslist 동시 리스팅)이 너무 쉬움</li>
+      </ul></div>
+    </div>
+    <div class="vc-perspective">"진짜 질문은 '이것이 왜 지금 가능한가?'가 아니라 '왜 대부분의 사람들이 이것이 미친 짓이라고 생각하는가?'다. 그 '대중의 확신'이 틀렸을 때의 업사이드는 어마어마하다."</div>
+  </div>
+
+  <!-- 2. Marc Andreessen -->
+  <div class="vc-eval fade-in">
+    <div class="vc-eval-header">
+      <div><div class="vc-eval-name"><span class="emoji">🔵</span> Marc Andreessen</div><div class="vc-eval-tag">Software is Eating the World</div></div>
+      <div class="vc-verdict-badge invest">🟢 투자</div>
+    </div>
+    <div class="vc-eval-body">
+      <div class="vc-eval-col strengths"><h4>강점</h4><ul>
+        <li>$60B+ 호텔 산업에 소프트웨어 플랫폼 진입 — 클래식 "소프트웨어가 세상을 먹는" 케이스</li>
+        <li>양면 마켓플레이스 네트워크 효과의 잠재력</li>
+        <li>2008 경기 침체 → 추가 수입 + 저렴 숙소 욕구. 매크로 타이밍 완벽</li>
+      </ul></div>
+      <div class="vc-eval-col concerns"><h4>우려</h4><ul>
+        <li>기술 인력 부족 — 스케일링 단계에서 엔지니어링 역량 필요</li>
+        <li>규제 리스크 완전 무시. 호텔 산업 로비 파워 과소평가</li>
+      </ul></div>
+    </div>
+    <div class="vc-perspective">"이것은 단순히 저렴한 숙소가 아니라, 전 세계 모든 빈 방을 인벤토리로 만드는 이야기다. 호텔은 객실 추가에 수억 달러가 드는데, 이 플랫폼은 제로 자본으로 무한 인벤토리를 만든다."</div>
+  </div>
+
+  <!-- 3. Bill Gurley -->
+  <div class="vc-eval fade-in">
+    <div class="vc-eval-header">
+      <div><div class="vc-eval-name"><span class="emoji">🩷</span> Bill Gurley</div><div class="vc-eval-tag">유닛 이코노믹스의 대가</div></div>
+      <div class="vc-verdict-badge pass">🔴 패스</div>
+    </div>
+    <div class="vc-eval-body">
+      <div class="vc-eval-col strengths"><h4>강점</h4><ul>
+        <li>10% 테이크 레이트는 건전한 마켓플레이스 모델</li>
+        <li>Craigslist 대비 우월한 UX와 거래 안전성</li>
+      </ul></div>
+      <div class="vc-eval-col concerns"><h4>우려</h4><ul>
+        <li>유닛 이코노믹스 데이터가 문자 그대로 제로</li>
+        <li>$2.1B 전망이 top-down 가정의 연쇄</li>
+        <li>호스트 공급 확보 비용과 퀄리티 컨트롤 문제 무시</li>
+      </ul></div>
+    </div>
+    <div class="vc-perspective">"이 덱은 $2.1B revenue를 이야기하면서 단 하나의 코호트 데이터도 보여주지 않는다. 나는 스프레드시트를 사랑하는 사람인데, 여기엔 스프레드시트에 넣을 숫자가 없다."</div>
+  </div>
+
+  <!-- 4. Elad Gil -->
+  <div class="vc-eval fade-in">
+    <div class="vc-eval-header">
+      <div><div class="vc-eval-name"><span class="emoji">🟤</span> Elad Gil</div><div class="vc-eval-tag">하이그로스 핸드북</div></div>
+      <div class="vc-verdict-badge dig">🟡 추가 검토</div>
+    </div>
+    <div class="vc-eval-body">
+      <div class="vc-eval-col strengths"><h4>강점</h4><ul>
+        <li>시장 타이밍: 2008 금융위기 = 추가 수입 + 여행 절감. 매크로가 순풍</li>
+        <li>이벤트 타겟팅 GTM은 cold start 해결의 영리한 접근</li>
+      </ul></div>
+      <div class="vc-eval-col concerns"><h4>우려</h4><ul>
+        <li>팀의 스케일링 경험 부재. 글로벌 마켓플레이스 운영 경력 없음</li>
+        <li>$500K 자금 용도(hiring, marketing, ops) 분배 미공개</li>
+      </ul></div>
+    </div>
+    <div class="vc-perspective">"체크리스트로 보면 — 거대 시장 ✅, 타이밍 ✅, 명확한 BM ✅. 하지만 실행 계획 ❌. '첫 1,000개 리스팅 확보 주 단위 액션 플랜'을 요구해야 한다."</div>
+  </div>
+
+  <!-- 5. Fred Wilson -->
+  <div class="vc-eval fade-in">
+    <div class="vc-eval-header">
+      <div><div class="vc-eval-name"><span class="emoji">🟢</span> Fred Wilson</div><div class="vc-eval-tag">네트워크 효과의 수호자</div></div>
+      <div class="vc-verdict-badge invest">🟢 투자</div>
+    </div>
+    <div class="vc-eval-body">
+      <div class="vc-eval-col strengths"><h4>강점</h4><ul>
+        <li>교과서적 양면 네트워크 효과. 선순환이 강화될수록 경쟁자 진입 난이도 상승</li>
+        <li>리뷰/프로필 시스템 = reputation asset → 스위칭 코스트</li>
+      </ul></div>
+      <div class="vc-eval-col concerns"><h4>우려</h4><ul>
+        <li>네트워크 효과가 로컬 vs 글로벌? 도시별 cold start 반복 가능성</li>
+        <li>Craigslist 멀티호밍이 너무 쉬움 → 네트워크 효과 희석</li>
+      </ul></div>
+    </div>
+    <div class="vc-perspective">"어느 쪽이 더 잡기 어려운 사이드인가? 호스트다. Craigslist dual posting 전략은 영리해 — 기존 네트워크를 빌려서 부트스트래핑."</div>
+  </div>
+
+  <!-- 6. Arjun Sethi -->
+  <div class="vc-eval fade-in">
+    <div class="vc-eval-header">
+      <div><div class="vc-eval-name"><span class="emoji">⚫</span> Arjun Sethi</div><div class="vc-eval-tag">Data Doesn't Lie</div></div>
+      <div class="vc-verdict-badge pass">🔴 패스</div>
+    </div>
+    <div class="vc-eval-body">
+      <div class="vc-eval-col strengths"><h4>강점</h4><ul>
+        <li>플랫폼이 실제 존재하고 돌아감. Couchsurfing 660K는 시장 수요 proxy</li>
+      </ul></div>
+      <div class="vc-eval-col concerns"><h4>우려</h4><ul>
+        <li>리텐션 커브, 코호트 분석, 전환율, NPS 전무</li>
+        <li>"Market validation"이 경쟁사 숫자 인용에 그침</li>
+        <li>정량적 PMF 증거 없이 투자는 기도에 불과</li>
+      </ul></div>
+    </div>
+    <div class="vc-perspective">"Magic 8-Ball 프레임워크로 보면 — Growth Accounting 없고, Quick Ratio 없고, 리텐션 곡선의 shape도 모른다. 이건 투자가 아니라 기도다."</div>
+  </div>
+
+  <!-- 7. Reid Hoffman -->
+  <div class="vc-eval fade-in">
+    <div class="vc-eval-header">
+      <div><div class="vc-eval-name"><span class="emoji">🔷</span> Reid Hoffman</div><div class="vc-eval-tag">블리츠스케일링 창시자</div></div>
+      <div class="vc-verdict-badge invest">🟢 투자</div>
+    </div>
+    <div class="vc-eval-body">
+      <div class="vc-eval-col strengths"><h4>강점</h4><ul>
+        <li>WTA 마켓 구조: 네트워크 효과 + 브랜드 + 리뷰 축적 = 선점자 압도적 우위</li>
+        <li>소프트웨어 플랫폼으로 글로벌 확장 가능</li>
+      </ul></div>
+      <div class="vc-eval-col concerns"><h4>우려</h4><ul>
+        <li>아직 블리츠스케일링 단계가 아님. PMF 증명 전</li>
+        <li>현재 제품이 event-dependent해 보임</li>
+      </ul></div>
+    </div>
+    <div class="vc-perspective">"PayPal에서 배운 것 — 초기에 작아 보이는 시장이 엄청난 시장의 입구일 수 있다. 이벤트 숙소에서 시작해서 전체 여행 숙박을 장악할 수 있다."</div>
+  </div>
+
+  <!-- 8. Sam Altman -->
+  <div class="vc-eval fade-in">
+    <div class="vc-eval-header">
+      <div><div class="vc-eval-name"><span class="emoji">🌐</span> Sam Altman</div><div class="vc-eval-tag">Think Bigger</div></div>
+      <div class="vc-verdict-badge invest">🟢 투자</div>
+    </div>
+    <div class="vc-eval-body">
+      <div class="vc-eval-col strengths"><h4>강점</h4><ul>
+        <li>전 세계 모든 빈 방 = 잠재적 인벤토리. 세상의 작동 방식을 바꿀 크기의 아이디어</li>
+        <li>디자인 배경이 오히려 장점 — UX 집착 팀이 마켓플레이스를 만든다면?</li>
+      </ul></div>
+      <div class="vc-eval-col concerns"><h4>우려</h4><ul>
+        <li>$500K 라운드가 비전 대비 너무 작음</li>
+        <li>순수 비즈니스 모델 혁신 — 기술적 진입 장벽이 궁금</li>
+      </ul></div>
+    </div>
+    <div class="vc-perspective">"YC에서 가장 중요한 건 '이 창업자들이 이 문제를 풀기 위해 태어난 사람들인가?' RISD 디자이너 둘이 호스피탈리티를 재발명? 미친 것 같지만, 그런 아이디어가 세상을 바꾼다."</div>
+  </div>
+
+  <!-- 9. Garry Tan -->
+  <div class="vc-eval fade-in">
+    <div class="vc-eval-header">
+      <div><div class="vc-eval-name"><span class="emoji">🟡</span> Garry Tan</div><div class="vc-eval-tag">Anti-Mimetic Investing</div></div>
+      <div class="vc-verdict-badge invest">🟢 투자</div>
+    </div>
+    <div class="vc-eval-body">
+      <div class="vc-eval-col strengths"><h4>강점</h4><ul>
+        <li>남들이 웃는 아이디어 = 반모방적 투자 핵심. "ㅋ" 반응이 나오는 딜에서 10000x</li>
+        <li>창업자-시장 핏: 자기 집 에어매트리스를 빌려준 체험에서 시작한 통찰</li>
+      </ul></div>
+      <div class="vc-eval-col concerns"><h4>우려</h4><ul>
+        <li>$500K / 12개월 = 월 ~$40K. SF에서 3명 운영 시 타이트</li>
+        <li>초기 커뮤니티 구축이 이벤트에 과도하게 의존</li>
+      </ul></div>
+    </div>
+    <div class="vc-perspective">"모두가 패스하는 딜. '왜 패스하는지' 들여다보면 편견에 기반한 경우가 많다. '사람들이 낯선 사람 집에서 안 잘 거야'는 사실이 아니라 가정이다."</div>
+  </div>
+
+  <!-- 10. Naval Ravikant -->
+  <div class="vc-eval fade-in">
+    <div class="vc-eval-header">
+      <div><div class="vc-eval-name"><span class="emoji">🧘</span> Naval Ravikant</div><div class="vc-eval-tag">Specific Knowledge + Leverage</div></div>
+      <div class="vc-verdict-badge dig">🟡 추가 검토</div>
+    </div>
+    <div class="vc-eval-body">
+      <div class="vc-eval-col strengths"><h4>강점</h4><ul>
+        <li>코드/미디어 레버리지의 교과서. 스케일 시 한계 비용 0 수렴. 호텔은 방 추가에 건설비</li>
+        <li>리뷰+신뢰+브랜드의 복리 효과 — 시간이 지날수록 경쟁 어려워지는 구조</li>
+      </ul></div>
+      <div class="vc-eval-col concerns"><h4>우려</h4><ul>
+        <li>창업자의 "특정 지식"이 불명확. 디자인은 대체 가능</li>
+        <li>고객 서비스, 분쟁 해결, 품질 관리 — 노동 집약적 요소 잠재</li>
+      </ul></div>
+    </div>
+    <div class="vc-perspective">"진짜 질문 — 이 비즈니스는 코드 레버리지를 탈 수 있는가, 사람 레버리지에 의존하는가? 플랫폼은 코드지만, 신뢰는 사람이 만든다. 이 긴장 관계가 핵심이다."</div>
+  </div>
+
+</div>
+</section>
+
+<!-- STAGE 3: IC DEBATE -->
+<section id="stage3" class="stage-section">
+<div class="container">
+  <div class="stage-label">🔥 Stage 3</div>
+  <div class="stage-title">투자위원회 토론</div>
+  <div class="stage-subtitle">선정된 3인의 패널이 5라운드에 걸쳐 실전 IC 토론을 진행합니다.</div>
+
+  <!-- Round 1 -->
+  <div class="round">
+    <div class="round-header">
+      <div class="round-num">01</div>
+      <div><div class="stage-label" style="margin:0">Round 1</div><div class="round-title">큰 그림과 기본 입장</div></div>
+    </div>
+
+    <div class="debate-entry bull fade-in">
+      <div class="debate-speaker">
+        <span class="debate-role-tag">🟢 THE BULL</span>
+        <span class="debate-speaker-name">Marc Andreessen 🔵</span>
+      </div>
+      <div class="debate-text">
+        이건 제가 <strong>"it's time"</strong>이라고 부르는 순간입니다. 호텔 산업은 $60B+ 시장인데, 인터넷이 아직 제대로 건드리지 못했어요. Expedia, Booking.com은 기존 호텔의 유통 채널일 뿐이지, 숙박의 본질을 바꾸지 않았습니다.<br><br>
+        AB&amp;B가 하는 건 완전히 다릅니다. <strong>전 세계 모든 빈 방을 숙박 인벤토리로 전환</strong>하는 겁니다. 호텔 체인이 새 객실 하나 만드는 데 수십만 달러가 드는데, 이 플랫폼은 제로 마진 코스트로 인벤토리를 무한히 확장할 수 있어요.<br><br>
+        그리고 타이밍을 보세요. 2008년, 경제가 무너지고 있어요. 사람들은 추가 수입이 절실하고, 여행 예산은 줄어들고 있어요. 이 매크로 환경이 AB&amp;B의 양쪽 사이드를 동시에 밀어줍니다.
+      </div>
+    </div>
+
+    <div class="debate-entry bear fade-in">
+      <div class="debate-speaker">
+        <span class="debate-role-tag">🔴 THE BEAR</span>
+        <span class="debate-speaker-name">Bill Gurley 🩷</span>
+      </div>
+      <div class="debate-text">
+        Marc, 열정은 좋은데 숫자부터 봅시다. 이 덱에서 가장 큰 문제? <strong>데이터가 없다는 겁니다.</strong><br><br>
+        $2.1B revenue를 전망하면서 현재 거래가 몇 건인지도 안 알려줘요. "12개월에 80K 거래"를 달성하겠다는데, 지금 일일 거래가 1건인지 100건인지 모릅니다. 이건 비즈니스 플랜이 아니라 소설이에요.<br><br>
+        마켓 사이즈 계산도 전형적인 <strong>top-down 환상</strong>입니다. "2B trips → 560M budget online → 84M = 15% 마켓셰어." 이런 계산은 제 Benchmark 파트너 미팅에서 즉시 퇴장감이에요.
+      </div>
+    </div>
+
+    <div class="debate-entry wild fade-in">
+      <div class="debate-speaker">
+        <span class="debate-role-tag">🃏 WILD CARD</span>
+        <span class="debate-speaker-name">Clayton Christensen 📘</span>
+      </div>
+      <div class="debate-text">
+        한 발짝 물러서서 프레임워크로 봅시다. Innovator's Dilemma의 관점에서 — AB&amp;B는 <strong>classic low-end disruption의 패턴</strong>을 따르고 있습니다. 기존 호텔 대비 열등한 제품이지만, <strong>비소비(non-consumption) 층</strong>을 타겟합니다.<br><br>
+        핵심 질문은 — <strong>이것이 진짜 파괴적 혁신인가, 아니면 단순히 저가 세그먼트인가?</strong> 파괴적 혁신이 되려면, 점진적으로 올라와서 결국 메인스트림 고객을 빼앗아야 합니다. Steel mini-mills가 rebar에서 구조용 강재까지 올라온 것처럼. AB&amp;B가 에어매트리스에서 비즈니스 여행자까지 잡을 수 있을까?
+      </div>
+    </div>
+  </div>
+
+  <!-- Round 2 -->
+  <div class="round">
+    <div class="round-header">
+      <div class="round-num">02</div>
+      <div><div class="stage-label" style="margin:0">Round 2</div><div class="round-title">구체적 수치와 사례로 공방</div></div>
+    </div>
+
+    <div class="debate-entry bull fade-in">
+      <div class="debate-speaker"><span class="debate-role-tag">🟢 THE BULL</span><span class="debate-speaker-name">Marc Andreessen 🔵</span></div>
+      <div class="debate-text">Bill, 데이터 없다는 비판은 맞아요. 하지만 당신이 Uber에 투자할 때도 초기엔 데이터가 별로 없었잖아요.<br><br>대신 proxy를 봅시다. <strong>Couchsurfing 660K 유저</strong> — 무료임에도 낯선 사람 집에서 자겠다는 사람이 66만 명이라는 뜻이에요. Craigslist에 <strong>주당 50K 임시 숙소 리스팅</strong> — 이미 공급이 있다는 뜻. 수요도 있고 공급도 있는데, 둘을 연결하는 제대로 된 마켓플레이스가 없는 겁니다.<br><br>그리고 Clayton, Netflix를 보세요. DVD 배달이라는 열등한 경험에서 시작해서 결국 Hollywood를 무너뜨렸어요.</div>
+    </div>
+    <div class="debate-entry bear fade-in">
+      <div class="debate-speaker"><span class="debate-role-tag">🔴 THE BEAR</span><span class="debate-speaker-name">Bill Gurley 🩷</span></div>
+      <div class="debate-text">Uber 얘기는 하지 맙시다. Uber는 첫 투자 시점에 이미 명확한 유닛 이코노믹스가 있었어요.<br><br>Couchsurfing 660K가 AB&amp;B의 성공을 증명한다고요? <strong>Couchsurfing은 무료입니다.</strong> 그리고 Craigslist의 50K 리스팅은 오히려 위험 신호 — <strong>이미 무료로 가능한 일</strong>을 왜 수수료를 내고 AB&amp;B에서 해야 하나요?<br><br>구체적으로: 80K 거래 × $25 = $2M 매출. 여기서 결제 수수료, 고객 서비스, 서버, 마케팅을 빼면? <strong>번 레이트만으로도 숫자가 안 맞습니다.</strong></div>
+    </div>
+    <div class="debate-entry wild fade-in">
+      <div class="debate-speaker"><span class="debate-role-tag">🃏 WILD CARD</span><span class="debate-speaker-name">Clayton Christensen 📘</span></div>
+      <div class="debate-text">Bill의 우려는 타당하지만, Disruption Theory의 중요한 교훈을 간과하고 있어요. <strong>기존 기업의 재무 프레임워크로 파괴적 혁신을 평가하면, 항상 투자할 수 없다는 결론이 나옵니다.</strong> Intel이 low-end 칩을 무시한 것, US Steel이 mini-mills를 웃어넘긴 것 — 전부 같은 패턴.<br><br>다만 Marc에게 경고 — <strong>모든 low-end entrant가 올라가지는 않습니다.</strong> "개선의 궤적(trajectory of improvement)"이 있어야 해요.</div>
+    </div>
+  </div>
+
+  <!-- Round 3 -->
+  <div class="round">
+    <div class="round-header">
+      <div class="round-num">03</div>
+      <div><div class="stage-label" style="margin:0">Round 3</div><div class="round-title">핵심 쟁점 심화</div></div>
+    </div>
+
+    <div class="debate-entry bull fade-in">
+      <div class="debate-speaker"><span class="debate-role-tag">🟢 THE BULL</span><span class="debate-speaker-name">Marc Andreessen 🔵</span></div>
+      <div class="debate-text">무료 대안이 있는데 왜 수수료를 내느냐? <strong>신뢰와 편의성</strong> 때문입니다. Craigslist를 써본 사람은 알아요 — 사기꾼, 유령 리스팅, 결제 보장 없음. AB&amp;B는 프로필, 리뷰, 온라인 결제라는 <strong>신뢰 인프라</strong>를 제공해요.<br><br>eBay도 처음에 "왜 무료 신문 광고 대신 수수료를 내느냐"는 질문을 받았어요. 답은 같습니다 — 마켓플레이스의 신뢰, 도달 범위, 편의성에 돈을 낼 가치가 있기 때문.<br><br>그리고 <strong>디자인이 곧 신뢰입니다.</strong> RISD 출신 두 명이 만드는 UX는 Craigslist가 절대 따라올 수 없어요.</div>
+    </div>
+    <div class="debate-entry bear fade-in">
+      <div class="debate-speaker"><span class="debate-role-tag">🔴 THE BEAR</span><span class="debate-speaker-name">Bill Gurley 🩷</span></div>
+      <div class="debate-text">eBay 비유는 좋은데, 결정적 차이가 있어요 — <strong>피지컬 안전 이슈가 없었다</strong>는 겁니다. eBay에서 나쁜 거래? $50 잃어요. AB&amp;B에서? <strong>낯선 사람 집에서 안전이 위협</strong>받을 수 있어요.<br><br>이 덱에서 가장 경악스러운 빠진 항목이 <strong>Trust &amp; Safety</strong>입니다. 보험? 신원 확인? 스크리닝? 뉴스에 헤드라인 하나면 이 비즈니스는 끝날 수 있어요.<br><br>"디자인이 곧 신뢰"라고? 예쁜 UI가 안전 문제를 해결하지는 못합니다.</div>
+    </div>
+    <div class="debate-entry wild fade-in">
+      <div class="debate-speaker"><span class="debate-role-tag">🃏 WILD CARD</span><span class="debate-speaker-name">Clayton Christensen 📘</span></div>
+      <div class="debate-text"><strong>Jobs-to-be-Done</strong> 프레임워크로 깊이 들어갑시다. 고객이 AB&amp;B를 "고용"하는 진짜 이유가 뭔가요? 여행자의 real job은 "<strong>새로운 도시에서 현지인처럼 느끼고 싶다</strong>"일 수 있어요.<br><br>이게 중요한 이유 — "저렴한 숙소"를 찾는 사람은 안전에 민감하지만, <strong>"현지 경험"을 찾는 사람은 의도적으로 불확실성을 받아들입니다.</strong> 이 심리적 프레이밍이 진짜 해자가 될 수 있습니다.<br><br>Marc, 주의하세요 — "저렴한 호텔 대안"으로 포지셔닝하면 Bill의 모든 우려가 맞습니다. <strong>"문화 공유 플랫폼"으로 포지셔닝</strong>해야만 파괴적 혁신의 궤적을 탈 수 있어요.</div>
+    </div>
+  </div>
+
+  <!-- Round 4 -->
+  <div class="round">
+    <div class="round-header">
+      <div class="round-num">04</div>
+      <div><div class="stage-label" style="margin:0">Round 4</div><div class="round-title">핵심 쟁점으로 수렴</div></div>
+    </div>
+
+    <div class="debate-entry bull fade-in">
+      <div class="debate-speaker"><span class="debate-role-tag">🟢 THE BULL</span><span class="debate-speaker-name">Marc Andreessen 🔵</span></div>
+      <div class="debate-text">Bill, 안전 우려는 진지하게 받아들입니다. 하지만 — <strong>모든 플랫폼 비즈니스는 초기에 안전 위협에 직면했고, 해결하면서 더 강해졌습니다.</strong> eBay→PayPal, Amazon→리뷰+보증, Uber→GPS+검증.<br><br><strong>신뢰 문제는 기술로 해결 가능한 문제입니다.</strong> 리뷰 시스템, 신원 확인, 보증금, 보험 — 엔지니어링 문제이지 근본적 결함이 아닙니다. $500K Angel round에서 완벽한 Trust &amp; Safety를 요구하는 건 과한 요구예요.</div>
+    </div>
+    <div class="debate-entry bear fade-in">
+      <div class="debate-speaker"><span class="debate-role-tag">🔴 THE BEAR</span><span class="debate-speaker-name">Bill Gurley 🩷</span></div>
+      <div class="debate-text">"나중에 해결"은 bull case에서만 통하는 논리예요. 하지만 공정하게, 내가 <strong>진짜 가장 걱정되는 건 유닛 이코노믹스의 구조적 문제</strong>입니다.<br><br>$25 수수료에서 결제 처리비 ~$1, 고객 서비스 ~$3-5, 마케팅 ~$5-10 → 거래당 순이익 $10 미만. 여행은 <strong>저빈도 거래</strong> — 연 2-3회, LTV $50-75. CAC가 높으면 성장할수록 돈을 잃는 구조. 여행 마켓플레이스는 <strong>근본적으로 CAC 회수가 어려운 카테고리</strong>입니다.</div>
+    </div>
+    <div class="debate-entry wild fade-in">
+      <div class="debate-speaker"><span class="debate-role-tag">🃏 WILD CARD</span><span class="debate-speaker-name">Clayton Christensen 📘</span></div>
+      <div class="debate-text">Bill의 "저빈도 거래" 우려가 가장 구조적인 질문이네요. <strong>Value Chain 분석</strong>으로 보면, 숙박은 여행의 한 요소. AB&amp;B가 <strong>인접 서비스로 확장</strong>할 수 있느냐가 LTV 해답이 될 수 있어요.<br><br>호스트가 도시 투어, 요리 체험 등 부가 서비스를 제공하면? 숙박 플랫폼에서 <strong>로컬 경험 플랫폼</strong>으로 진화 가능. 하지만 이건 현재 덱에 없는 비전이에요. Amazon이 책에서 "everything store"가 된 것처럼 — 가능성은 있지만 미지수.</div>
+    </div>
+  </div>
+
+  <!-- Round 5 -->
+  <div class="round">
+    <div class="round-header">
+      <div class="round-num">05</div>
+      <div><div class="stage-label" style="margin:0">Round 5</div><div class="round-title">최종 입장 + 조건부 의견</div></div>
+    </div>
+
+    <div class="debate-entry bull fade-in">
+      <div class="debate-speaker"><span class="debate-role-tag">🟢 THE BULL</span><span class="debate-speaker-name">Marc Andreessen 🔵</span></div>
+      <div class="debate-text"><strong>모든 마켓플레이스는 초기에 유닛 이코노믹스가 나빠 보입니다.</strong> 스케일이 해결해요. Clayton 교수님의 "로컬 경험 플랫폼" 비전이 정확히 제가 보는 것입니다. 이것은 방 예약이 아닙니다. <strong>인간 대 인간의 신뢰 네트워크</strong>입니다.<br><br>$500K Angel에서 기대하는 건 완벽한 비즈니스가 아니라 <strong>PMF의 싹</strong>이에요. DNC에서 그 싹을 보여줬습니다.<br><br><strong>조건:</strong> 6개월 내 Trust &amp; Safety 로드맵 완성, 비이벤트 일상 여행 반복 이용률 데이터 제시.</div>
+    </div>
+    <div class="debate-entry bear fade-in">
+      <div class="debate-speaker"><span class="debate-role-tag">🔴 THE BEAR</span><span class="debate-speaker-name">Bill Gurley 🩷</span></div>
+      <div class="debate-text">Marc의 비전이 맞을 수도 있어요. 솔직히. 하지만 <strong>이 덱이 그 비전을 뒷받침하지 못합니다.</strong> 비전의 문제가 아니라 증거의 문제예요.<br><br>패스 이유: (1) 하드 메트릭 제로 (2) $2.1B 비현실적 가정 (3) Trust &amp; Safety 전략 부재 (4) 저빈도 거래 CAC 구조 미해결.<br><br><strong>DNC 이후 3개월 코호트 데이터를 가져오면 재검토.</strong> 주간 거래 성장률, 호스트 재리스팅률, 게스트 반복 이용률 — 이 세 숫자를 보여주세요.</div>
+    </div>
+    <div class="debate-entry wild fade-in">
+      <div class="debate-speaker"><span class="debate-role-tag">🃏 WILD CARD</span><span class="debate-speaker-name">Clayton Christensen 📘</span></div>
+      <div class="debate-text">AB&amp;B는 <strong>파괴적 혁신의 거의 모든 조건을 갖추고 있습니다</strong> — 기존 기업이 무시하는 low-end, 비소비자 타겟, 새로운 가치 네트워크, 기술 기반 개선 궤적.<br><br>두 가지가 성패를 가릅니다: (1) <strong>"Share Culture" 포지셔닝 유지 vs "Cheap Hotel" 미끄러짐</strong> (2) <strong>개선의 궤적 속도</strong> — 신뢰 시스템, 품질 관리, 보험을 빠르게 쌓아야 메인스트림 진입 가능.<br><br><strong>조건:</strong> "문화 공유 플랫폼" 포지셔닝을 지킨다는 전제에서 투자. "호텔보다 싼 숙소"로 마케팅하면 패스로 전환.</div>
+    </div>
+  </div>
+
+  <!-- Final Verdicts -->
+  <div class="stage-label" style="margin-top: 2rem;">🏛️ Final Verdicts</div>
+  <div class="verdicts-grid">
+    <div class="verdict-card invest-v fade-in">
+      <div class="v-role">🟢 THE BULL</div>
+      <div class="v-name">Marc Andreessen 🔵</div>
+      <div class="v-decision">INVEST</div>
+      <div class="v-summary">소프트웨어가 $60B 호텔 산업을 먹는 시작점. 신뢰 네트워크가 무한 확장 가능한 플랫폼의 기반.</div>
+    </div>
+    <div class="verdict-card dig-v fade-in">
+      <div class="v-role">🔴 THE BEAR</div>
+      <div class="v-name">Bill Gurley 🩷</div>
+      <div class="v-decision">DIG DEEPER</div>
+      <div class="v-summary">비전은 매력적이나 하드 메트릭 제로. 3개월 코호트 데이터를 보고 재검토.</div>
+    </div>
+    <div class="verdict-card invest-v fade-in">
+      <div class="v-role">🃏 WILD CARD</div>
+      <div class="v-name">Clayton Christensen 📘</div>
+      <div class="v-decision">INVEST</div>
+      <div class="v-summary">교과서적 파괴적 혁신의 조건을 갖춘 rare case. "Share Culture" 포지셔닝 유지가 전제.</div>
+    </div>
+  </div>
+
+</div>
+</section>
+
+<!-- STAGE 4: COMPREHENSIVE REPORT -->
+<section id="stage4" class="stage-section">
+<div class="container">
+  <div class="stage-label">📊 Stage 4</div>
+  <div class="stage-title">종합 리포트</div>
+  <div class="stage-subtitle">토론에서 도출된 핵심 인사이트와 실행 가이드.</div>
+
+  <!-- 5 Key Insights -->
+  <div class="stage-label" style="margin-top: 1rem;">🔑 5 Key Insights</div>
+  <div style="margin-top: 1rem;">
+    <div class="insight fade-in">
+      <div class="insight-num">1</div>
+      <div class="insight-content">
+        <h4>"타이밍이 전략보다 중요하다"</h4>
+        <p>2008 금융위기가 양면 시장을 동시에 활성화. 추가 수입 욕구(호스트)와 비용 절감 욕구(게스트)가 동시 발생. 의도한 것이 아닌 우연이지만, 스타트업 성공에서 타이밍의 중요성을 극적으로 보여줌.</p>
+      </div>
+    </div>
+    <div class="insight fade-in">
+      <div class="insight-num">2</div>
+      <div class="insight-content">
+        <h4>"포지셔닝이 운명을 결정한다"</h4>
+        <p>"저렴한 대안"으로 가면 가격 경쟁과 안전 리스크의 수렁, "문화 공유 플랫폼"으로 가면 독자적 카테고리 창출. 이 포지셔닝 결정이 AB&amp;B의 10년 궤적을 결정할 것.</p>
+      </div>
+    </div>
+    <div class="insight fade-in">
+      <div class="insight-num">3</div>
+      <div class="insight-content">
+        <h4>"데이터 없는 비전은 소설이다"</h4>
+        <p>$2.1B 전망을 하면서 현재 거래 건수 미공개는 심각한 red flag. Angel round라도 최소한의 트랙션 데이터(일일 거래, 전환율, 재이용률)는 보여줘야 투자자 신뢰를 획득.</p>
+      </div>
+    </div>
+    <div class="insight fade-in">
+      <div class="insight-num">4</div>
+      <div class="insight-content">
+        <h4>"신뢰는 기술로 해결 가능한 문제"</h4>
+        <p>안전/신뢰 문제 자체는 엔지니어링으로 해결 가능하다는 데 패널 전원 동의. 문제는 이 팀이 그 문제를 인식하고 있는지가 덱에서 전혀 드러나지 않는 것. 인식의 부재는 능력의 부재보다 위험.</p>
+      </div>
+    </div>
+    <div class="insight fade-in">
+      <div class="insight-num">5</div>
+      <div class="insight-content">
+        <h4>"디자이너 팀은 약점이 아니라 무기"</h4>
+        <p>반직관적이지만, RISD 디자이너 2명이 만드는 플랫폼은 UX 경쟁 우위를 가질 수 있음. Craigslist의 못생긴 인터페이스가 주는 불안감을 깨끗한 디자인이 해소 — "디자인 = 신뢰".</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider" style="margin: 3rem 0;"></div>
+
+  <!-- Questions for Founder -->
+  <div class="stage-label">❓ Questions for the Founder</div>
+
+  <div class="questions-section" style="margin-top: 1.5rem;">
+    <div class="questions-header">
+      <span class="q-emoji">🔵</span>
+      <h4>Marc Andreessen의 질문</h4>
+    </div>
+    <div class="question-item"><div class="q-num">01</div><div>DNC 이후 이벤트 없는 "평일 일상" 환경에서의 예약 트렌드는? 이벤트 의존도가 100%인가요, organic demand가 있나요?</div></div>
+    <div class="question-item"><div class="q-num">02</div><div>호스트의 재리스팅률(한 번 호스팅 후 다시 리스팅하는 비율)이 어떻게 되나요?</div></div>
+    <div class="question-item"><div class="q-num">03</div><div>5년 후 AB&amp;B가 "숙박" 이외에 어떤 서비스를 제공하고 있을 것 같나요?</div></div>
+    <div class="question-item"><div class="q-num">04</div><div>엔지니어링 팀 확장 계획이 어떻게 되나요? Nathan 혼자서는 글로벌 마켓플레이스 불가능.</div></div>
+    <div class="question-item"><div class="q-num">05</div><div>호텔 산업이 반격할 때 (로비, 규제, 자체 플랫폼) 어떤 대응 전략이 있나요?</div></div>
+  </div>
+
+  <div class="questions-section">
+    <div class="questions-header">
+      <span class="q-emoji">🩷</span>
+      <h4>Bill Gurley의 질문</h4>
+    </div>
+    <div class="question-item"><div class="q-num">01</div><div>현재까지의 정확한 누적 거래 건수와 GMV가 얼마인가요? 솔직하게요.</div></div>
+    <div class="question-item"><div class="q-num">02</div><div>평균 CAC(게스트)와 평균 CAC(호스트)가 각각 얼마인가요?</div></div>
+    <div class="question-item"><div class="q-num">03</div><div>게스트의 반복 이용률(2회 이상 예약)이 어떻게 되나요?</div></div>
+    <div class="question-item"><div class="q-num">04</div><div>분쟁/불만 건수와 해결 비용은? 거래의 몇 %에서 문제 발생, 건당 해결 비용은?</div></div>
+    <div class="question-item"><div class="q-num">05</div><div>$500K의 상세 자금 집행 계획을 월별로 보여주세요. 12개월 캐시플로우 테이블.</div></div>
+  </div>
+
+  <div class="questions-section">
+    <div class="questions-header">
+      <span class="q-emoji">📘</span>
+      <h4>Clayton Christensen의 질문</h4>
+    </div>
+    <div class="question-item"><div class="q-num">01</div><div>고객이 AB&amp;B를 "고용"하는 진짜 이유(Job-to-be-Done)가 뭐라고 생각하시나요?</div></div>
+    <div class="question-item"><div class="q-num">02</div><div>호텔 체인(Marriott, Hilton)이 이 비즈니스를 어떻게 인식하고 있나요? 무시 중이라면 좋은 징후.</div></div>
+    <div class="question-item"><div class="q-num">03</div><div>AB&amp;B 경험의 "품질 개선 궤적"을 어떻게 관리할 계획인가요?</div></div>
+    <div class="question-item"><div class="q-num">04</div><div>비소비자에서 메인스트림 여행자까지 확장하는 구체적 로드맵이 있나요?</div></div>
+    <div class="question-item"><div class="q-num">05</div><div>"저렴한 숙소"와 "문화 공유" 중 하나를 포기해야 한다면 어느 쪽?</div></div>
+  </div>
+
+  <div class="divider" style="margin: 3rem 0;"></div>
+
+  <!-- Action Plans -->
+  <div class="stage-label">🎯 Action Plans — "IF I WERE YOU..."</div>
+
+  <div class="action-plan" style="margin-top: 1.5rem;">
+    <div class="action-plan-header"><h4>🔵 Marc Andreessen — "내가 이 창업자라면"</h4></div>
+    <div class="action-step fade-in">
+      <div class="step-num">1</div>
+      <div class="step-content"><h5>Trust = Growth 공식을 만들어라 (Month 1-2)</h5><p>리뷰 시스템, 호스트 검증, 게스트 프로필을 1순위로 강화. 예쁜 기능 추가보다 "이 사람을 믿어도 되나?"에 대한 답이 모든 성장의 기반.</p></div>
+    </div>
+    <div class="action-step fade-in">
+      <div class="step-num">2</div>
+      <div class="step-content"><h5>이벤트 의존에서 벗어나라 (Month 3-6)</h5><p>이벤트는 좋은 부트스트랩이지만 지속 불가. SF, NYC, LA에서 평일 수요를 만들어라. "이벤트 숙소"가 아니라 "여행 숙소"가 되어야.</p></div>
+    </div>
+    <div class="action-step fade-in">
+      <div class="step-num">3</div>
+      <div class="step-content"><h5>Craigslist를 해킹하라 (Month 1-12)</h5><p>Dual posting 기능으로 Craigslist 기존 호스트를 AB&amp;B로 흡수. 기존 네트워크를 빌려서 자기 네트워크 구축.</p></div>
+    </div>
+    <div class="action-step fade-in">
+      <div class="step-num">4</div>
+      <div class="step-content"><h5>"Culture Story"를 브랜딩하라 (Month 1-12)</h5><p>"호텔보다 싸다"가 아니라 "호텔에서는 할 수 없는 경험"을 팔아라. Dan A의 "It's about the ideas, the interactions, the people"이 완벽한 소재.</p></div>
+    </div>
+  </div>
+
+  <div class="action-plan">
+    <div class="action-plan-header"><h4>🩷 Bill Gurley — "내가 이 창업자라면"</h4></div>
+    <div class="action-step fade-in">
+      <div class="step-num">1</div>
+      <div class="step-content"><h5>숫자를 만들어라, 지금 당장 (Month 1)</h5><p>5대 지표 대시보드 구축: 일일 예약, 게스트 전환율, 호스트 재리스팅률, 평균 예약가, 고객서비스 건수/비용.</p></div>
+    </div>
+    <div class="action-step fade-in">
+      <div class="step-num">2</div>
+      <div class="step-content"><h5>코호트를 만들어라 (Month 1-3)</h5><p>첫 500명 게스트의 3개월 행동 데이터 코호트 관리. 반복 이용률, 리퍼럴 비율, 클레임 비율 — Series A 핵심 무기.</p></div>
+    </div>
+    <div class="action-step fade-in">
+      <div class="step-num">3</div>
+      <div class="step-content"><h5>테이크 레이트 재설계 (Month 3-6)</h5><p>10% 단일 커미션 대신 게스트 서비스 수수료 + 호스트 수수료 분리. 양쪽 수수료로 체감 부담 낮추고 총 테이크 레이트 상승.</p></div>
+    </div>
+    <div class="action-step fade-in">
+      <div class="step-num">4</div>
+      <div class="step-content"><h5>$500K를 24개월치로 운용하라</h5><p>12개월이 아니라 24개월 runway. 월 $20K로 생존하면서 더 많은 실험 여유 확보. 자본 효율성 증명.</p></div>
+    </div>
+  </div>
+
+  <div class="action-plan">
+    <div class="action-plan-header"><h4>📘 Clayton Christensen — "내가 이 창업자라면"</h4></div>
+    <div class="action-step fade-in">
+      <div class="step-num">1</div>
+      <div class="step-content"><h5>"고객의 Job"을 정확히 파악하라 (Month 1-2)</h5><p>초기 100명 게스트 + 50명 호스트 깊이 인터뷰. "왜 선택했나?", "기대와 뭐가 달랐나?", "다시 사용할 건가?" — 가정이 아닌 발견이 필요.</p></div>
+    </div>
+    <div class="action-step fade-in">
+      <div class="step-num">2</div>
+      <div class="step-content"><h5>"누구를 위한 것이 아닌지" 명확히 하라 (Month 2-3)</h5><p>비즈니스 출장객, 럭셔리 여행자는 지금 타겟이 아님. "가격 민감 + 현지 경험 욕구 + 모험적 여행자"에 집중.</p></div>
+    </div>
+    <div class="action-step fade-in">
+      <div class="step-num">3</div>
+      <div class="step-content"><h5>"개선의 궤적"을 의도적으로 설계하라 (Month 3-9)</h5><p>V1: 에어매트리스 → V2: 개인 방 → V3: 전체 아파트 → V4: 유니크 공간. 각 단계에서 새 고객 세그먼트 흡수.</p></div>
+    </div>
+    <div class="action-step fade-in">
+      <div class="step-num">4</div>
+      <div class="step-content"><h5>기존 산업 반응을 모니터링하라 (Always)</h5><p>Marriott, Hilton이 무시하면 좋은 신호(파괴적 혁신의 전형). 진지하게 대응하기 시작하면 이미 충분히 성장했다는 뜻.</p></div>
+    </div>
+  </div>
+
+  <div class="divider" style="margin: 3rem 0;"></div>
+
+  <!-- Executive Summary -->
+  <div class="stage-label">📝 Executive Summary</div>
+  <div class="exec-summary" style="margin-top: 1rem;">
+    <p>
+      AirBed&amp;Breakfast는 2008년 시점에서 <strong>교과서적 파괴적 혁신의 조건을 갖춘 rare deal</strong>이다. $60B+ 호텔 산업에 소프트웨어 플랫폼으로 진입하며, 금융위기라는 매크로 타이밍이 양면 시장을 동시에 활성화하는 이상적 환경이다.
+      <br><br>
+      <strong>핵심 강점:</strong> 거대 시장의 비소비자 타겟, 제로 마진 코스트의 무한 인벤토리, 양면 네트워크 효과의 잠재력.
+      <br><br>
+      <strong>핵심 리스크:</strong> 하드 메트릭의 완전한 부재, Trust &amp; Safety 전략 미언급, 저빈도 거래의 CAC 구조, 디자이너 중심 팀의 스케일링 경험 부족.
+      <br><br>
+      <strong>투자 매력도:</strong> 패널 3인 중 2인이 INVEST, 1인이 DIG DEEPER. 이 덱 자체만으로는 불충분하며, 코호트 데이터와 Trust 로드맵을 확인한 후 최종 결정 필요. 한 마디로, <strong>비전은 $100B짜리인데 증거는 $0짜리</strong>인 전형적 초기 단계 딜이다.
+    </p>
+  </div>
+
+</div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="epilogue">
+      이 덱으로 7번 거절당한 후 결국 YC S09에 들어갔고, 2020년 IPO 시 시가총액 $100B+를 찍었죠. Bill Gurley식으로 말하면, "스프레드시트에 넣을 숫자가 없었던" 그 회사가 Benchmark의 가장 큰 미스 중 하나가 되었다는 아이러니. 물론 hindsight는 20/20이니까요. 😏
+    </div>
+    <p>VC Investment Committee Simulator · 15 Personas · Powered by AI</p>
+  </div>
+</footer>
+
+<script>
+// Scroll-based fade-in animation
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.vc-eval, .debate-entry, .insight, .action-step, .memo-card, .panel-card, .trigger-item, .verdict-card').forEach(el => {
+  el.classList.add('fade-in');
+  observer.observe(el);
+});
+
+// Smooth scroll for nav links
+document.querySelectorAll('.nav-links a').forEach(link => {
+  link.addEventListener('click', (e) => {
+    e.preventDefault();
+    const target = document.querySelector(link.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+</script>
+
+
+
+</body></html>
