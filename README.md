@@ -14,16 +14,6 @@ Panel Selection — Bull, Bear, Wild Card 3인 패널 구성
 5-Round IC Debate — 실제 투자위원회처럼 공격·방어·합의 과정 시뮬레이션
 Final Report — 종합 판정 + 액션 플랜 도출
 
-ai_vc/
-├── index.html              # 메인 페이지 (리포트 목록)
-├── prompt.html             # AIVC 시스템 프롬프트 (오픈소스)
-├── airbnb-2008.html        # Airbnb 리포트
-├── facebook_2004.html  # thefacebook 리포트
-├── uber_2008.html          # UberCab 리포트
-├── wework_2012.html        # WeWork 리포트
-├── youtube-2005.html       # YouTube 리포트
-└── README.md
-
 Author
 Ian Park
 Venture Partner @ Principal Venture Partners
